@@ -1,0 +1,36 @@
+---
+import Head from '../components/Head.astro'
+
+export interface Props {
+	seo: {
+		title: string
+		description: string
+		image: string
+		url: string
+	}
+}
+
+const { seo } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<Head {...seo} />
+	<body>
+		<slot />
+		<style is:global>
+			:root {
+				--accent: 124, 58, 237;
+				--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+			}
+			html {
+				font-family: system-ui, sans-serif;
+				background-color: #f6f6f6;
+			}
+			code {
+				font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+					Bitstream Vera Sans Mono, Courier New, monospace;
+			}
+		</style>
+	</body>
+</html>
