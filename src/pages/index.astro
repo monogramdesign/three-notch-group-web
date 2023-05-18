@@ -1,5 +1,5 @@
 ---
-import { Image } from '@astrojs/image/components'
+import { Image } from 'astro:assets'
 
 import Layout from '../layouts/Layout.astro'
 import Card from '../components/Card.astro'
@@ -45,7 +45,7 @@ const seo = {
 		</ul>
 
 		<div class="mt-6">
-			<Image src="/monogram.png" alt="Monogram Logo" width={100} height={100} />
+			<Image src="../../public/monogram.png" alt="Monogram Logo" width={100} height={100} />
 		</div>
 	</main>
 </Layout>
