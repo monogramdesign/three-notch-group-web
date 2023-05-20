@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, sharpImageService } from 'astro/config'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel/serverless'
 
@@ -8,13 +8,16 @@ export default defineConfig({
 	experimental: {
 		assets: true
 	},
+	image: {
+		service: sharpImageService()
+	},
 
 	output: 'server',
 	adapter: vercel({
 		analytics: true,
 		imageService: true,
 		imageConfig: {
-			sizes: [320, 640, 1280]
+			sizes: [150, 320, 640, 1280]
 		}
 	})
 })
