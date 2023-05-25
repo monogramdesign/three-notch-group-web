@@ -11,15 +11,15 @@
 		"prettier": "prettier --write ."
 	},
 	"dependencies": {
-		"@astrojs/tailwind": "^3.1.2",
+		"@astrojs/tailwind": "^3.1.3",
 		"@astrojs/vercel": "^3.4.0",
-		"astro": "^2.5.0",
+		"astro": "^2.5.1",
 		"sass": "^1.62.1",
 		"sharp": "^0.32.1",
-		"tailwindcss": "^3.0.24"
+		"tailwindcss": "^3.3.2"
 	},
 	"devDependencies": {
 		"prettier": "^2.8.8",
-		"prettier-plugin-astro": "^0.8.1"
+		"prettier-plugin-astro": "^0.9.0"
 	}
 }
