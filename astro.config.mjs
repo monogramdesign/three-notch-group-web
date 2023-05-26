@@ -4,7 +4,11 @@ import vercel from '@astrojs/vercel/serverless'
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [tailwind()],
+	integrations: [
+		tailwind({
+			config: { applyBasestyles: false }
+		})
+	],
 	experimental: {
 		assets: true
 	},
