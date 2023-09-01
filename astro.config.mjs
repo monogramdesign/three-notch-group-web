@@ -9,9 +9,6 @@ export default defineConfig({
 			config: { applyBasestyles: false }
 		})
 	],
-	experimental: {
-		assets: true
-	},
 	image: {
 		service: sharpImageService()
 	},
