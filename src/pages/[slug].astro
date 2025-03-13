@@ -1,5 +1,5 @@
 ---
-import HomeHero from '../components/hero/HomeHero.astro'
+import PageComponent from '../components/page/PageComponent.astro'
 import Layout from '../layouts/Layout.astro'
 import { getPage } from '../services/pageService'
 
@@ -27,12 +27,6 @@ if (!page) {
 
 <Layout seo={seo}>
 	<main>
-		{
-			page.page?.sections.map((section) => {
-				if (section.__typename === 'HomeHeroRecord') {
-					return <HomeHero {...section} />
-				}
-			})
-		}
+		<PageComponent sections={page.page?.sections} />
 	</main>
 </Layout>

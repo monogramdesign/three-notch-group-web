@@ -11,17 +11,7 @@ fragment PageFragment on PageRecord {
 	}
 	sections {
 		... on ArticleHeroRecord {
-			__typename
-			id
-			title
-			topic
-			image {
-				responsiveImage {
-					src
-					alt
-				}
-			}
-			date
+			...ArticleHero
 		}
 		... on CardStackRecord {
 			__typename
@@ -85,21 +75,10 @@ fragment PageFragment on PageRecord {
 			}
 		}
 		... on HomeHeroRecord {
-			...HomeHeroFragment
+			...HomeHero
 		}
 		... on InnerHeroRecord {
-			__typename
-			id
-			title
-			variation
-			eyebrow
-			description
-			backgroundImage {
-				id
-				responsiveImage {
-					src
-				}
-			}
+			...InnerHero
 		}
 	}
 }

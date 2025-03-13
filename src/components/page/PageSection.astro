@@ -1,0 +1,30 @@
+---
+import type {
+	HomeHeroFragment,
+	InnerHeroFragment,
+	ArticleHeroFragment
+} from '../../generated/graphql'
+import InnerHero from '../hero/InnerHero.astro'
+import HomeHero from '../hero/HomeHero.astro'
+import ArticleHero from '../hero/ArticleHero.astro'
+
+type Props = {
+	section: HomeHeroFragment | InnerHeroFragment | ArticleHeroFragment
+}
+
+const { section } = Astro.props
+---
+
+<switch values={section.__typename}>
+	<case value="HomeHeroRecord">
+		<HomeHero {...section} />
+	</case>
+
+	<case value="InnerHeroRecord">
+		<InnerHero {...section} />
+	</case>
+
+	<case value="ArticleHeroRecord">
+		<ArticleHero {...section} />
+	</case>
+</switch>

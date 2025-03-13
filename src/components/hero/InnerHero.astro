@@ -1,0 +1,32 @@
+---
+import type { InnerHeroFragment } from '../../generated/graphql'
+
+type Props = Pick<
+	InnerHeroFragment,
+	'title' | 'description' | 'backgroundImage' | 'variation' | 'eyebrow'
+>
+
+const { title, description, backgroundImage, variation, eyebrow } = Astro.props
+---
+
+<section>
+	<div class="container mx-auto px-4">
+		<div class="flex flex-col items-center justify-center">
+			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+				{title}
+			</h1>
+			<p class="text-lg md:text-xl max-w-2xl mx-auto">
+				{description}
+			</p>
+			<p class="text-lg md:text-xl max-w-2xl mx-auto">
+				{backgroundImage?.responsiveImage?.src}
+			</p>
+			<p class="text-lg md:text-xl max-w-2xl mx-auto">
+				{variation}
+			</p>
+			<p class="text-lg md:text-xl max-w-2xl mx-auto">
+				{eyebrow}
+			</p>
+		</div>
+	</div>
+</section>

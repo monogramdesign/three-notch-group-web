@@ -3219,10 +3219,36 @@ export type FocalPoint = {
 	y: Scalars['FloatType']['output']
 }
 
-export type HomeHeroFragmentFragment = {
+export type ArticleHeroFragment = {
+	__typename: 'ArticleHeroRecord'
+	id: any
+	title?: string | null
+	topic?: string | null
+	date?: any | null
+	image?: {
+		__typename?: 'FileField'
+		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
+	} | null
+}
+
+export type HomeHeroFragment = {
 	__typename: 'HomeHeroRecord'
 	id: any
 	title?: string | null
+	description?: string | null
+	backgroundImage?: {
+		__typename?: 'FileField'
+		id: any
+		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+	} | null
+}
+
+export type InnerHeroFragment = {
+	__typename: 'InnerHeroRecord'
+	id: any
+	title?: string | null
+	variation?: string | null
+	eyebrow?: string | null
 	description?: string | null
 	backgroundImage?: {
 		__typename?: 'FileField'
@@ -3603,11 +3629,42 @@ export type HomePageQuery = {
 	} | null
 }
 
-export const HomeHeroFragmentFragmentDoc = gql`
-	fragment HomeHeroFragment on HomeHeroRecord {
+export const ArticleHeroFragmentDoc = gql`
+	fragment ArticleHero on ArticleHeroRecord {
 		__typename
 		id
 		title
+		topic
+		image {
+			responsiveImage {
+				src
+				alt
+			}
+		}
+		date
+	}
+`
+export const HomeHeroFragmentDoc = gql`
+	fragment HomeHero on HomeHeroRecord {
+		__typename
+		id
+		title
+		description
+		backgroundImage {
+			id
+			responsiveImage {
+				src
+			}
+		}
+	}
+`
+export const InnerHeroFragmentDoc = gql`
+	fragment InnerHero on InnerHeroRecord {
+		__typename
+		id
+		title
+		variation
+		eyebrow
 		description
 		backgroundImage {
 			id
@@ -3631,17 +3688,7 @@ export const PageFragmentFragmentDoc = gql`
 		}
 		sections {
 			... on ArticleHeroRecord {
-				__typename
-				id
-				title
-				topic
-				image {
-					responsiveImage {
-						src
-						alt
-					}
-				}
-				date
+				...ArticleHero
 			}
 			... on CardStackRecord {
 				__typename
@@ -3705,25 +3752,16 @@ export const PageFragmentFragmentDoc = gql`
 				}
 			}
 			... on HomeHeroRecord {
-				...HomeHeroFragment
+				...HomeHero
 			}
 			... on InnerHeroRecord {
-				__typename
-				id
-				title
-				variation
-				eyebrow
-				description
-				backgroundImage {
-					id
-					responsiveImage {
-						src
-					}
-				}
+				...InnerHero
 			}
 		}
 	}
-	${HomeHeroFragmentFragmentDoc}
+	${ArticleHeroFragmentDoc}
+	${HomeHeroFragmentDoc}
+	${InnerHeroFragmentDoc}
 `
 export const PageDocument = gql`
 	query Page($slug: String) {

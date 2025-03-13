@@ -1,7 +1,7 @@
 ---
-import type { HomeHeroFragmentFragment } from '../../generated/graphql'
+import type { HomeHeroFragment } from '../../generated/graphql'
 
-type Props = Pick<HomeHeroFragmentFragment, 'title' | 'description' | 'backgroundImage'>
+type Props = Pick<HomeHeroFragment, 'title' | 'description' | 'backgroundImage'>
 
 const { title, description, backgroundImage } = Astro.props
 ---

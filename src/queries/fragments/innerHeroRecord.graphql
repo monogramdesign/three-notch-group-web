@@ -1,7 +1,9 @@
-fragment HomeHero on HomeHeroRecord {
+fragment InnerHero on InnerHeroRecord {
 	__typename
 	id
 	title
+	variation
+	eyebrow
 	description
 	backgroundImage {
 		id

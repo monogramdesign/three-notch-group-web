@@ -1,0 +1,13 @@
+fragment ArticleHero on ArticleHeroRecord {
+	__typename
+	id
+	title
+	topic
+	image {
+		responsiveImage {
+			src
+			alt
+		}
+	}
+	date
+}

@@ -1,0 +1,20 @@
+---
+import type { PageFragmentFragment } from '../../generated/graphql'
+import PageSection from './PageSection.astro'
+
+type Props = Readonly<PageFragmentFragment>
+
+const { sections } = Astro.props
+---
+
+{!sections && <div>No sections found</div>}
+
+{
+	sections && (
+		<main>
+			{sections.map((section: any) => (
+				<PageSection section={section} />
+			))}
+		</main>
+	)
+}
