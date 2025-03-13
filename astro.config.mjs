@@ -16,7 +16,8 @@ export default defineConfig({
 		analytics: true,
 		imageService: true,
 		imagesConfig: {
-			sizes: [150, 320, 640, 1280]
+			sizes: [150, 320, 640, 1280],
+			domains: ['images.unsplash.com']
 		}
 	})
 })
