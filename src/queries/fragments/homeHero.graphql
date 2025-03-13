@@ -1,0 +1,12 @@
+fragment HomeHeroFragment on HomeHeroRecord {
+	__typename
+	id
+	title
+	description
+	backgroundImage {
+		id
+		responsiveImage {
+			src
+		}
+	}
+}

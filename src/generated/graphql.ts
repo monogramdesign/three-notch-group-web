@@ -3219,7 +3219,141 @@ export type FocalPoint = {
 	y: Scalars['FloatType']['output']
 }
 
-export type PageQueryVariables = Exact<{ [key: string]: never }>
+export type HomeHeroFragmentFragment = {
+	__typename: 'HomeHeroRecord'
+	id: any
+	title?: string | null
+	description?: string | null
+	backgroundImage?: {
+		__typename?: 'FileField'
+		id: any
+		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+	} | null
+}
+
+export type PageFragmentFragment = {
+	__typename?: 'PageRecord'
+	id: any
+	name?: string | null
+	slug?: string | null
+	thumbnailImage?: {
+		__typename?: 'FileField'
+		id: any
+		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
+	} | null
+	sections: Array<
+		| {
+				__typename: 'ArticleHeroRecord'
+				id: any
+				title?: string | null
+				topic?: string | null
+				date?: any | null
+				image?: {
+					__typename?: 'FileField'
+					responsiveImage?: {
+						__typename?: 'ResponsiveImage'
+						src: string
+						alt?: string | null
+					} | null
+				} | null
+		  }
+		| {
+				__typename: 'CardStackRecord'
+				id: any
+				title?: string | null
+				categories: Array<string>
+				items: Array<
+					| {
+							__typename: 'ArticleRecord'
+							id: any
+							category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+							content?: {
+								__typename?: 'ArticleModelContentField'
+								links: Array<string>
+								value: any
+								blocks: Array<{
+									__typename?: 'EmbedImageRecord'
+									id: any
+									image?: {
+										__typename?: 'FileField'
+										responsiveImage?: {
+											__typename?: 'ResponsiveImage'
+											alt?: string | null
+											src: string
+										} | null
+									} | null
+								}>
+							} | null
+							thumbnailImage?: {
+								__typename?: 'FileField'
+								id: any
+								responsiveImage?: {
+									__typename?: 'ResponsiveImage'
+									alt?: string | null
+									src: string
+								} | null
+							} | null
+					  }
+					| {
+							__typename: 'PageRecord'
+							id: any
+							name?: string | null
+							slug?: string | null
+							thumbnailImage?: {
+								__typename?: 'FileField'
+								id: any
+								responsiveImage?: {
+									__typename?: 'ResponsiveImage'
+									alt?: string | null
+									src: string
+								} | null
+							} | null
+					  }
+				>
+		  }
+		| {
+				__typename: 'FormRecord'
+				id: any
+				title?: string | null
+				variation?: string | null
+				submitLink?: string | null
+				items: Array<{
+					__typename?: 'FormItemRecord'
+					id: any
+					label?: string | null
+					fieldType?: string | null
+				}>
+		  }
+		| {
+				__typename: 'HomeHeroRecord'
+				id: any
+				title?: string | null
+				description?: string | null
+				backgroundImage?: {
+					__typename?: 'FileField'
+					id: any
+					responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+				} | null
+		  }
+		| {
+				__typename: 'InnerHeroRecord'
+				id: any
+				title?: string | null
+				variation?: string | null
+				eyebrow?: string | null
+				description?: string | null
+				backgroundImage?: {
+					__typename?: 'FileField'
+					id: any
+					responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+				} | null
+		  }
+	>
+}
+
+export type PageQueryVariables = Exact<{
+	slug?: InputMaybe<Scalars['String']['input']>
+}>
 
 export type PageQuery = {
 	__typename?: 'Query'
@@ -3344,123 +3478,268 @@ export type PageQuery = {
 	} | null
 }
 
-export const PageDocument = gql`
-	query Page {
-		page {
+export type HomePageQueryVariables = Exact<{ [key: string]: never }>
+
+export type HomePageQuery = {
+	__typename?: 'Query'
+	page?: {
+		__typename?: 'PageRecord'
+		id: any
+		name?: string | null
+		slug?: string | null
+		thumbnailImage?: {
+			__typename?: 'FileField'
+			id: any
+			responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
+		} | null
+		sections: Array<
+			| {
+					__typename: 'ArticleHeroRecord'
+					id: any
+					title?: string | null
+					topic?: string | null
+					date?: any | null
+					image?: {
+						__typename?: 'FileField'
+						responsiveImage?: {
+							__typename?: 'ResponsiveImage'
+							src: string
+							alt?: string | null
+						} | null
+					} | null
+			  }
+			| {
+					__typename: 'CardStackRecord'
+					id: any
+					title?: string | null
+					categories: Array<string>
+					items: Array<
+						| {
+								__typename: 'ArticleRecord'
+								id: any
+								category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+								content?: {
+									__typename?: 'ArticleModelContentField'
+									links: Array<string>
+									value: any
+									blocks: Array<{
+										__typename?: 'EmbedImageRecord'
+										id: any
+										image?: {
+											__typename?: 'FileField'
+											responsiveImage?: {
+												__typename?: 'ResponsiveImage'
+												alt?: string | null
+												src: string
+											} | null
+										} | null
+									}>
+								} | null
+								thumbnailImage?: {
+									__typename?: 'FileField'
+									id: any
+									responsiveImage?: {
+										__typename?: 'ResponsiveImage'
+										alt?: string | null
+										src: string
+									} | null
+								} | null
+						  }
+						| {
+								__typename: 'PageRecord'
+								id: any
+								name?: string | null
+								slug?: string | null
+								thumbnailImage?: {
+									__typename?: 'FileField'
+									id: any
+									responsiveImage?: {
+										__typename?: 'ResponsiveImage'
+										alt?: string | null
+										src: string
+									} | null
+								} | null
+						  }
+					>
+			  }
+			| {
+					__typename: 'FormRecord'
+					id: any
+					title?: string | null
+					variation?: string | null
+					submitLink?: string | null
+					items: Array<{
+						__typename?: 'FormItemRecord'
+						id: any
+						label?: string | null
+						fieldType?: string | null
+					}>
+			  }
+			| {
+					__typename: 'HomeHeroRecord'
+					id: any
+					title?: string | null
+					description?: string | null
+					backgroundImage?: {
+						__typename?: 'FileField'
+						id: any
+						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+					} | null
+			  }
+			| {
+					__typename: 'InnerHeroRecord'
+					id: any
+					title?: string | null
+					variation?: string | null
+					eyebrow?: string | null
+					description?: string | null
+					backgroundImage?: {
+						__typename?: 'FileField'
+						id: any
+						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+					} | null
+			  }
+		>
+	} | null
+}
+
+export const HomeHeroFragmentFragmentDoc = gql`
+	fragment HomeHeroFragment on HomeHeroRecord {
+		__typename
+		id
+		title
+		description
+		backgroundImage {
 			id
-			name
-			slug
-			thumbnailImage {
-				id
-				responsiveImage {
-					src
-					alt
-				}
+			responsiveImage {
+				src
 			}
-			sections {
-				... on ArticleHeroRecord {
-					__typename
-					id
-					title
-					topic
-					image {
-						responsiveImage {
-							src
-							alt
-						}
+		}
+	}
+`
+export const PageFragmentFragmentDoc = gql`
+	fragment PageFragment on PageRecord {
+		id
+		name
+		slug
+		thumbnailImage {
+			id
+			responsiveImage {
+				src
+				alt
+			}
+		}
+		sections {
+			... on ArticleHeroRecord {
+				__typename
+				id
+				title
+				topic
+				image {
+					responsiveImage {
+						src
+						alt
 					}
-					date
 				}
-				... on CardStackRecord {
-					__typename
-					id
-					title
-					categories
-					items {
-						... on ArticleRecord {
-							__typename
-							id
-							category {
-								id
-								name
-							}
-							content {
-								blocks {
-									id
-									image {
-										responsiveImage {
-											alt
-											src
-										}
-									}
-								}
-								links
-								value
-							}
-							thumbnailImage {
-								id
-								responsiveImage {
-									alt
-									src
-								}
-							}
-						}
-						... on PageRecord {
-							__typename
+				date
+			}
+			... on CardStackRecord {
+				__typename
+				id
+				title
+				categories
+				items {
+					... on ArticleRecord {
+						__typename
+						id
+						category {
 							id
 							name
-							slug
-							thumbnailImage {
+						}
+						content {
+							blocks {
 								id
-								responsiveImage {
-									alt
-									src
+								image {
+									responsiveImage {
+										alt
+										src
+									}
 								}
+							}
+							links
+							value
+						}
+						thumbnailImage {
+							id
+							responsiveImage {
+								alt
+								src
+							}
+						}
+					}
+					... on PageRecord {
+						__typename
+						id
+						name
+						slug
+						thumbnailImage {
+							id
+							responsiveImage {
+								alt
+								src
 							}
 						}
 					}
 				}
-				... on FormRecord {
-					__typename
+			}
+			... on FormRecord {
+				__typename
+				id
+				title
+				variation
+				submitLink
+				items {
 					id
-					title
-					variation
-					submitLink
-					items {
-						id
-						label
-						fieldType
-					}
+					label
+					fieldType
 				}
-				... on HomeHeroRecord {
-					__typename
+			}
+			... on HomeHeroRecord {
+				...HomeHeroFragment
+			}
+			... on InnerHeroRecord {
+				__typename
+				id
+				title
+				variation
+				eyebrow
+				description
+				backgroundImage {
 					id
-					title
-					description
-					backgroundImage {
-						id
-						responsiveImage {
-							src
-						}
-					}
-				}
-				... on InnerHeroRecord {
-					__typename
-					id
-					title
-					variation
-					eyebrow
-					description
-					backgroundImage {
-						id
-						responsiveImage {
-							src
-						}
+					responsiveImage {
+						src
 					}
 				}
 			}
 		}
 	}
+	${HomeHeroFragmentFragmentDoc}
+`
+export const PageDocument = gql`
+	query Page($slug: String) {
+		page(filter: { slug: { eq: $slug } }) {
+			...PageFragment
+		}
+	}
+	${PageFragmentFragmentDoc}
+`
+export const HomePageDocument = gql`
+	query HomePage {
+		page(filter: { slug: { eq: "home" } }) {
+			...PageFragment
+		}
+	}
+	${PageFragmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -3486,6 +3765,21 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
 						...wrappedRequestHeaders
 					}),
 				'Page',
+				'query',
+				variables
+			)
+		},
+		HomePage(
+			variables?: HomePageQueryVariables,
+			requestHeaders?: GraphQLClientRequestHeaders
+		): Promise<HomePageQuery> {
+			return withWrapper(
+				(wrappedRequestHeaders) =>
+					client.request<HomePageQuery>(HomePageDocument, variables, {
+						...requestHeaders,
+						...wrappedRequestHeaders
+					}),
+				'HomePage',
 				'query',
 				variables
 			)

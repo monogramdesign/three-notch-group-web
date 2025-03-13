@@ -1,10 +1,9 @@
 ---
 import { Image } from 'astro:assets'
 
-import { getPage } from '../services/pageService'
+import { getHomePage } from '../services/pageService'
 
 import Layout from '../layouts/Layout.astro'
-import Card from '../components/Card.astro'
 
 import '../styles/styles.scss'
 
@@ -17,51 +16,18 @@ const seo = {
 	url: 'https://monogram.io'
 }
 
-// Monogram Logo
-import monogramLogo from '../assets/monogram.png'
-
-const pageData = await getPage()
+const homePageData = await getHomePage()
 ---
 
 <Layout seo={seo}>
 	<main>
 		<h1>Welcome to <span class="text-gradient">Astro x Monogram</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
 
-		<div class="mt-6">
-			<Image src={monogramLogo} alt="Monogram Logo" width={150} height={150} />
-		</div>
-
-		<h2>{pageData.page?.name}</h2>
-		<p>{pageData.page?.slug}</p>
+		<h2>{homePageData.page?.name}</h2>
+		<p>{homePageData.page?.slug}</p>
 
 		{
-			pageData.page?.sections.map((section) => (
+			homePageData.page?.sections.map((section) => (
 				<div>
 					<h3>{section.__typename}</h3>
 					<p>{section.title}</p>
