@@ -3,5 +3,114 @@ query Page {
 		id
 		name
 		slug
+		thumbnailImage {
+			id
+			responsiveImage {
+				src
+				alt
+			}
+		}
+		sections {
+			... on ArticleHeroRecord {
+				__typename
+				id
+				title
+				topic
+				image {
+					responsiveImage {
+						src
+						alt
+					}
+				}
+				date
+			}
+			... on CardStackRecord {
+				__typename
+				id
+				title
+				categories
+				items {
+					... on ArticleRecord {
+						__typename
+						id
+						category {
+							id
+							name
+						}
+						content {
+							blocks {
+								id
+								image {
+									responsiveImage {
+										alt
+										src
+									}
+								}
+							}
+							links
+							value
+						}
+						thumbnailImage {
+							id
+							responsiveImage {
+								alt
+								src
+							}
+						}
+					}
+					... on PageRecord {
+						__typename
+						id
+						name
+						slug
+						thumbnailImage {
+							id
+							responsiveImage {
+								alt
+								src
+							}
+						}
+					}
+				}
+			}
+			... on FormRecord {
+				__typename
+				id
+				title
+				variation
+				submitLink
+				items {
+					id
+					label
+					fieldType
+				}
+			}
+			... on HomeHeroRecord {
+				__typename
+				id
+				title
+				description
+				backgroundImage {
+					id
+					responsiveImage {
+						src
+					}
+				}
+			}
+			... on InnerHeroRecord {
+				__typename
+				id
+				title
+				variation
+				eyebrow
+				description
+				backgroundImage {
+					id
+					responsiveImage {
+						src
+					}
+				}
+			}
+		}
 	}
 }

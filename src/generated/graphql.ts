@@ -21,18 +21,212 @@ export type Scalars = {
 	Float: { input: number; output: number }
 	BooleanType: { input: any; output: any }
 	CustomData: { input: any; output: any }
+	Date: { input: any; output: any }
 	DateTime: { input: any; output: any }
 	FloatType: { input: any; output: any }
 	IntType: { input: any; output: any }
 	ItemId: { input: any; output: any }
+	JsonField: { input: any; output: any }
 	MetaTagAttributes: { input: any; output: any }
 	UploadId: { input: any; output: any }
+}
+
+/** Block of type Article Hero (article_hero) */
+export type ArticleHeroRecord = RecordInterface & {
+	__typename?: 'ArticleHeroRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	date?: Maybe<Scalars['Date']['output']>
+	id: Scalars['ItemId']['output']
+	image?: Maybe<FileField>
+	title?: Maybe<Scalars['String']['output']>
+	topic?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Article Hero (article_hero) */
+export type ArticleHeroRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+export type ArticleModelContentField = {
+	__typename?: 'ArticleModelContentField'
+	blocks: Array<EmbedImageRecord>
+	links: Array<Scalars['String']['output']>
+	value: Scalars['JsonField']['output']
+}
+
+export type ArticleModelFilter = {
+	AND?: InputMaybe<Array<InputMaybe<ArticleModelFilter>>>
+	OR?: InputMaybe<Array<InputMaybe<ArticleModelFilter>>>
+	_createdAt?: InputMaybe<CreatedAtFilter>
+	_firstPublishedAt?: InputMaybe<PublishedAtFilter>
+	_isValid?: InputMaybe<BooleanFilter>
+	_publicationScheduledAt?: InputMaybe<PublishedAtFilter>
+	_publishedAt?: InputMaybe<PublishedAtFilter>
+	_status?: InputMaybe<StatusFilter>
+	_unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>
+	_updatedAt?: InputMaybe<UpdatedAtFilter>
+	category?: InputMaybe<LinkFilter>
+	content?: InputMaybe<StructuredTextFilter>
+	id?: InputMaybe<ItemIdFilter>
+	thumbnailImage?: InputMaybe<FileFilter>
+}
+
+export enum ArticleModelOrderBy {
+	CreatedAtAsc = '_createdAt_ASC',
+	CreatedAtDesc = '_createdAt_DESC',
+	FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+	FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+	IsValidAsc = '_isValid_ASC',
+	IsValidDesc = '_isValid_DESC',
+	PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+	PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+	PublishedAtAsc = '_publishedAt_ASC',
+	PublishedAtDesc = '_publishedAt_DESC',
+	StatusAsc = '_status_ASC',
+	StatusDesc = '_status_DESC',
+	UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+	UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+	UpdatedAtAsc = '_updatedAt_ASC',
+	UpdatedAtDesc = '_updatedAt_DESC',
+	IdAsc = 'id_ASC',
+	IdDesc = 'id_DESC'
+}
+
+/** Record of type Article (article) */
+export type ArticleRecord = RecordInterface & {
+	__typename?: 'ArticleRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	category?: Maybe<CategoryRecord>
+	content?: Maybe<ArticleModelContentField>
+	id: Scalars['ItemId']['output']
+	thumbnailImage?: Maybe<FileField>
+}
+
+/** Record of type Article (article) */
+export type ArticleRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
 }
 
 /** Specifies how to filter Boolean fields */
 export type BooleanFilter = {
 	/** Search for records with an exact match */
 	eq?: InputMaybe<Scalars['BooleanType']['input']>
+}
+
+export type CardStackModelItemsField = ArticleRecord | PageRecord
+
+/** Block of type Card Stack (card_stack) */
+export type CardStackRecord = RecordInterface & {
+	__typename?: 'CardStackRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	categories: Array<Scalars['String']['output']>
+	id: Scalars['ItemId']['output']
+	items: Array<CardStackModelItemsField>
+	title?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Card Stack (card_stack) */
+export type CardStackRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+export type CategoryModelFilter = {
+	AND?: InputMaybe<Array<InputMaybe<CategoryModelFilter>>>
+	OR?: InputMaybe<Array<InputMaybe<CategoryModelFilter>>>
+	_createdAt?: InputMaybe<CreatedAtFilter>
+	_firstPublishedAt?: InputMaybe<PublishedAtFilter>
+	_isValid?: InputMaybe<BooleanFilter>
+	_publicationScheduledAt?: InputMaybe<PublishedAtFilter>
+	_publishedAt?: InputMaybe<PublishedAtFilter>
+	_status?: InputMaybe<StatusFilter>
+	_unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>
+	_updatedAt?: InputMaybe<UpdatedAtFilter>
+	id?: InputMaybe<ItemIdFilter>
+	name?: InputMaybe<StringFilter>
+}
+
+export enum CategoryModelOrderBy {
+	CreatedAtAsc = '_createdAt_ASC',
+	CreatedAtDesc = '_createdAt_DESC',
+	FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+	FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+	IsValidAsc = '_isValid_ASC',
+	IsValidDesc = '_isValid_DESC',
+	PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+	PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+	PublishedAtAsc = '_publishedAt_ASC',
+	PublishedAtDesc = '_publishedAt_DESC',
+	StatusAsc = '_status_ASC',
+	StatusDesc = '_status_DESC',
+	UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+	UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+	UpdatedAtAsc = '_updatedAt_ASC',
+	UpdatedAtDesc = '_updatedAt_DESC',
+	IdAsc = 'id_ASC',
+	IdDesc = 'id_DESC',
+	NameAsc = 'name_ASC',
+	NameDesc = 'name_DESC'
+}
+
+/** Record of type Category (category) */
+export type CategoryRecord = RecordInterface & {
+	__typename?: 'CategoryRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	name?: Maybe<Scalars['String']['output']>
+}
+
+/** Record of type Category (category) */
+export type CategoryRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
 }
 
 export type CollectionMetadata = {
@@ -81,6 +275,31 @@ export type CreatedAtFilter = {
 	lte?: InputMaybe<Scalars['DateTime']['input']>
 	/** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
 	neq?: InputMaybe<Scalars['DateTime']['input']>
+}
+
+/** Block of type Embed Image (embed_image) */
+export type EmbedImageRecord = RecordInterface & {
+	__typename?: 'EmbedImageRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	image?: Maybe<FileField>
+}
+
+/** Block of type Embed Image (embed_image) */
+export type EmbedImageRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
 }
 
 export enum FaviconType {
@@ -232,6 +451,74 @@ export type FileFieldInterfaceUrlArgs = {
 	imgixParams?: InputMaybe<ImgixParams>
 }
 
+/** Specifies how to filter Single-file/image fields */
+export type FileFilter = {
+	/** Search for records with an exact match. The specified value must be an Upload ID */
+	eq?: InputMaybe<Scalars['UploadId']['input']>
+	/** Filter records with the specified field defined (i.e. with any value) or not */
+	exists?: InputMaybe<Scalars['BooleanType']['input']>
+	/** Filter records that have one of the specified uploads */
+	in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>
+	/** Exclude records with an exact match. The specified value must be an Upload ID */
+	neq?: InputMaybe<Scalars['UploadId']['input']>
+	/** Filter records that do not have one of the specified uploads */
+	notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>
+}
+
+/** Block of type Form Item (form_item) */
+export type FormItemRecord = RecordInterface & {
+	__typename?: 'FormItemRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	fieldType?: Maybe<Scalars['String']['output']>
+	id: Scalars['ItemId']['output']
+	label?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Form Item (form_item) */
+export type FormItemRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** Block of type Form (form) */
+export type FormRecord = RecordInterface & {
+	__typename?: 'FormRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	items: Array<FormItemRecord>
+	submitLink?: Maybe<Scalars['String']['output']>
+	title?: Maybe<Scalars['String']['output']>
+	variation?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Form (form) */
+export type FormRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
 export type GlobalSeoField = {
 	__typename?: 'GlobalSeoField'
 	facebookPageUrl?: Maybe<Scalars['String']['output']>
@@ -239,6 +526,38 @@ export type GlobalSeoField = {
 	siteName?: Maybe<Scalars['String']['output']>
 	titleSuffix?: Maybe<Scalars['String']['output']>
 	twitterAccount?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Home Hero (home_hero) */
+export type HomeHeroRecord = RecordInterface & {
+	__typename?: 'HomeHeroRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	backgroundImage?: Maybe<FileField>
+	description?: Maybe<Scalars['String']['output']>
+	id: Scalars['ItemId']['output']
+	title?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Home Hero (home_hero) */
+export type HomeHeroRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** Block of type Home Hero (home_hero) */
+export type HomeHeroRecordDescriptionArgs = {
+	markdown?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ImgixParams = {
@@ -2041,6 +2360,40 @@ export type InUseFilter = {
 	eq?: InputMaybe<Scalars['BooleanType']['input']>
 }
 
+/** Block of type Inner Hero (inner_hero) */
+export type InnerHeroRecord = RecordInterface & {
+	__typename?: 'InnerHeroRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	backgroundImage?: Maybe<FileField>
+	description?: Maybe<Scalars['String']['output']>
+	eyebrow?: Maybe<Scalars['String']['output']>
+	id: Scalars['ItemId']['output']
+	title?: Maybe<Scalars['String']['output']>
+	variation?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Inner Hero (inner_hero) */
+export type InnerHeroRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** Block of type Inner Hero (inner_hero) */
+export type InnerHeroRecordDescriptionArgs = {
+	markdown?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 /** Specifies how to filter by ID */
 export type ItemIdFilter = {
 	/** Search the record with the specified ID */
@@ -2057,6 +2410,20 @@ export enum ItemStatus {
 	Draft = 'draft',
 	Published = 'published',
 	Updated = 'updated'
+}
+
+/** Specifies how to filter Single-link fields */
+export type LinkFilter = {
+	/** Search for records with an exact match. The specified value must be a Record ID */
+	eq?: InputMaybe<Scalars['ItemId']['input']>
+	/** Filter records with the specified field defined (i.e. with any value) or not */
+	exists?: InputMaybe<Scalars['BooleanType']['input']>
+	/** Filter records linked to one of the specified records */
+	in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>
+	/** Exclude records with an exact match. The specified value must be a Record ID */
+	neq?: InputMaybe<Scalars['ItemId']['input']>
+	/** Filter records not linked to one of the specified records */
+	notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>
 }
 
 export enum MuxThumbnailFormatType {
@@ -2087,6 +2454,7 @@ export type PageModelFilter = {
 	id?: InputMaybe<ItemIdFilter>
 	name?: InputMaybe<StringFilter>
 	slug?: InputMaybe<SlugFilter>
+	thumbnailImage?: InputMaybe<FileFilter>
 }
 
 export enum PageModelOrderBy {
@@ -2112,6 +2480,13 @@ export enum PageModelOrderBy {
 	NameDesc = 'name_DESC'
 }
 
+export type PageModelSectionsField =
+	| ArticleHeroRecord
+	| CardStackRecord
+	| FormRecord
+	| HomeHeroRecord
+	| InnerHeroRecord
+
 /** Record of type Page (page) */
 export type PageRecord = RecordInterface & {
 	__typename?: 'PageRecord'
@@ -2130,7 +2505,9 @@ export type PageRecord = RecordInterface & {
 	_updatedAt: Scalars['DateTime']['output']
 	id: Scalars['ItemId']['output']
 	name?: Maybe<Scalars['String']['output']>
+	sections: Array<PageModelSectionsField>
 	slug?: Maybe<Scalars['String']['output']>
+	thumbnailImage?: Maybe<FileField>
 }
 
 /** Record of type Page (page) */
@@ -2160,19 +2537,43 @@ export type PublishedAtFilter = {
 export type Query = {
 	__typename?: 'Query'
 	/** Returns meta information regarding a record collection */
+	_allArticlesMeta: CollectionMetadata
+	/** Returns meta information regarding a record collection */
+	_allCategoriesMeta: CollectionMetadata
+	/** Returns meta information regarding a record collection */
 	_allPagesMeta: CollectionMetadata
 	/** Returns meta information regarding an assets collection */
 	_allUploadsMeta: CollectionMetadata
 	/** Returns the single instance record */
 	_site: Site
 	/** Returns a collection of records */
+	allArticles: Array<ArticleRecord>
+	/** Returns a collection of records */
+	allCategories: Array<CategoryRecord>
+	/** Returns a collection of records */
 	allPages: Array<PageRecord>
 	/** Returns a collection of assets */
 	allUploads: Array<FileField>
 	/** Returns a specific record */
+	article?: Maybe<ArticleRecord>
+	/** Returns a specific record */
+	category?: Maybe<CategoryRecord>
+	/** Returns a specific record */
 	page?: Maybe<PageRecord>
 	/** Returns a specific asset */
 	upload?: Maybe<FileField>
+}
+
+/** The query root for this schema */
+export type Query_AllArticlesMetaArgs = {
+	filter?: InputMaybe<ArticleModelFilter>
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** The query root for this schema */
+export type Query_AllCategoriesMetaArgs = {
+	filter?: InputMaybe<CategoryModelFilter>
+	locale?: InputMaybe<SiteLocale>
 }
 
 /** The query root for this schema */
@@ -2194,6 +2595,26 @@ export type Query_SiteArgs = {
 }
 
 /** The query root for this schema */
+export type QueryAllArticlesArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	filter?: InputMaybe<ArticleModelFilter>
+	first?: InputMaybe<Scalars['IntType']['input']>
+	locale?: InputMaybe<SiteLocale>
+	orderBy?: InputMaybe<Array<InputMaybe<ArticleModelOrderBy>>>
+	skip?: InputMaybe<Scalars['IntType']['input']>
+}
+
+/** The query root for this schema */
+export type QueryAllCategoriesArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	filter?: InputMaybe<CategoryModelFilter>
+	first?: InputMaybe<Scalars['IntType']['input']>
+	locale?: InputMaybe<SiteLocale>
+	orderBy?: InputMaybe<Array<InputMaybe<CategoryModelOrderBy>>>
+	skip?: InputMaybe<Scalars['IntType']['input']>
+}
+
+/** The query root for this schema */
 export type QueryAllPagesArgs = {
 	fallbackLocales?: InputMaybe<Array<SiteLocale>>
 	filter?: InputMaybe<PageModelFilter>
@@ -2211,6 +2632,22 @@ export type QueryAllUploadsArgs = {
 	locale?: InputMaybe<SiteLocale>
 	orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>
 	skip?: InputMaybe<Scalars['IntType']['input']>
+}
+
+/** The query root for this schema */
+export type QueryArticleArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	filter?: InputMaybe<ArticleModelFilter>
+	locale?: InputMaybe<SiteLocale>
+	orderBy?: InputMaybe<Array<InputMaybe<ArticleModelOrderBy>>>
+}
+
+/** The query root for this schema */
+export type QueryCategoryArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	filter?: InputMaybe<CategoryModelFilter>
+	locale?: InputMaybe<SiteLocale>
+	orderBy?: InputMaybe<Array<InputMaybe<CategoryModelOrderBy>>>
 }
 
 /** The query root for this schema */
@@ -2365,6 +2802,20 @@ export type StringMatchesFilter = {
 	caseSensitive?: InputMaybe<Scalars['BooleanType']['input']>
 	pattern: Scalars['String']['input']
 	regexp?: InputMaybe<Scalars['BooleanType']['input']>
+}
+
+/** Specifies how to filter Structured Text fields values */
+export type StructuredTextFilter = {
+	/** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
+	exists?: InputMaybe<Scalars['BooleanType']['input']>
+	/** Filter records with the specified field set as blank (null or single empty paragraph) */
+	isBlank?: InputMaybe<Scalars['BooleanType']['input']>
+	/** Filter records with the specified field present (neither null, nor empty string) */
+	isPresent?: InputMaybe<Scalars['BooleanType']['input']>
+	/** Filter records based on a regular expression */
+	matches?: InputMaybe<StringMatchesFilter>
+	/** Exclude records based on a regular expression */
+	notMatches?: InputMaybe<StringMatchesFilter>
 }
 
 export type Tag = {
@@ -2772,7 +3223,125 @@ export type PageQueryVariables = Exact<{ [key: string]: never }>
 
 export type PageQuery = {
 	__typename?: 'Query'
-	page?: { __typename?: 'PageRecord'; id: any; name?: string | null; slug?: string | null } | null
+	page?: {
+		__typename?: 'PageRecord'
+		id: any
+		name?: string | null
+		slug?: string | null
+		thumbnailImage?: {
+			__typename?: 'FileField'
+			id: any
+			responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
+		} | null
+		sections: Array<
+			| {
+					__typename: 'ArticleHeroRecord'
+					id: any
+					title?: string | null
+					topic?: string | null
+					date?: any | null
+					image?: {
+						__typename?: 'FileField'
+						responsiveImage?: {
+							__typename?: 'ResponsiveImage'
+							src: string
+							alt?: string | null
+						} | null
+					} | null
+			  }
+			| {
+					__typename: 'CardStackRecord'
+					id: any
+					title?: string | null
+					categories: Array<string>
+					items: Array<
+						| {
+								__typename: 'ArticleRecord'
+								id: any
+								category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+								content?: {
+									__typename?: 'ArticleModelContentField'
+									links: Array<string>
+									value: any
+									blocks: Array<{
+										__typename?: 'EmbedImageRecord'
+										id: any
+										image?: {
+											__typename?: 'FileField'
+											responsiveImage?: {
+												__typename?: 'ResponsiveImage'
+												alt?: string | null
+												src: string
+											} | null
+										} | null
+									}>
+								} | null
+								thumbnailImage?: {
+									__typename?: 'FileField'
+									id: any
+									responsiveImage?: {
+										__typename?: 'ResponsiveImage'
+										alt?: string | null
+										src: string
+									} | null
+								} | null
+						  }
+						| {
+								__typename: 'PageRecord'
+								id: any
+								name?: string | null
+								slug?: string | null
+								thumbnailImage?: {
+									__typename?: 'FileField'
+									id: any
+									responsiveImage?: {
+										__typename?: 'ResponsiveImage'
+										alt?: string | null
+										src: string
+									} | null
+								} | null
+						  }
+					>
+			  }
+			| {
+					__typename: 'FormRecord'
+					id: any
+					title?: string | null
+					variation?: string | null
+					submitLink?: string | null
+					items: Array<{
+						__typename?: 'FormItemRecord'
+						id: any
+						label?: string | null
+						fieldType?: string | null
+					}>
+			  }
+			| {
+					__typename: 'HomeHeroRecord'
+					id: any
+					title?: string | null
+					description?: string | null
+					backgroundImage?: {
+						__typename?: 'FileField'
+						id: any
+						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+					} | null
+			  }
+			| {
+					__typename: 'InnerHeroRecord'
+					id: any
+					title?: string | null
+					variation?: string | null
+					eyebrow?: string | null
+					description?: string | null
+					backgroundImage?: {
+						__typename?: 'FileField'
+						id: any
+						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+					} | null
+			  }
+		>
+	} | null
 }
 
 export const PageDocument = gql`
@@ -2781,6 +3350,115 @@ export const PageDocument = gql`
 			id
 			name
 			slug
+			thumbnailImage {
+				id
+				responsiveImage {
+					src
+					alt
+				}
+			}
+			sections {
+				... on ArticleHeroRecord {
+					__typename
+					id
+					title
+					topic
+					image {
+						responsiveImage {
+							src
+							alt
+						}
+					}
+					date
+				}
+				... on CardStackRecord {
+					__typename
+					id
+					title
+					categories
+					items {
+						... on ArticleRecord {
+							__typename
+							id
+							category {
+								id
+								name
+							}
+							content {
+								blocks {
+									id
+									image {
+										responsiveImage {
+											alt
+											src
+										}
+									}
+								}
+								links
+								value
+							}
+							thumbnailImage {
+								id
+								responsiveImage {
+									alt
+									src
+								}
+							}
+						}
+						... on PageRecord {
+							__typename
+							id
+							name
+							slug
+							thumbnailImage {
+								id
+								responsiveImage {
+									alt
+									src
+								}
+							}
+						}
+					}
+				}
+				... on FormRecord {
+					__typename
+					id
+					title
+					variation
+					submitLink
+					items {
+						id
+						label
+						fieldType
+					}
+				}
+				... on HomeHeroRecord {
+					__typename
+					id
+					title
+					description
+					backgroundImage {
+						id
+						responsiveImage {
+							src
+						}
+					}
+				}
+				... on InnerHeroRecord {
+					__typename
+					id
+					title
+					variation
+					eyebrow
+					description
+					backgroundImage {
+						id
+						responsiveImage {
+							src
+						}
+					}
+				}
+			}
 		}
 	}
 `

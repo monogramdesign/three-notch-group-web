@@ -59,6 +59,15 @@ const pageData = await getPage()
 
 		<h2>{pageData.page?.name}</h2>
 		<p>{pageData.page?.slug}</p>
+
+		{
+			pageData.page?.sections.map((section) => (
+				<div>
+					<h3>{section.__typename}</h3>
+					<p>{section.title}</p>
+				</div>
+			))
+		}
 	</main>
 </Layout>
 
