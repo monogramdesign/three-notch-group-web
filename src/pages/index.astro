@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets'
 
+import { getPage } from '../services/pageService'
+
 import Layout from '../layouts/Layout.astro'
 import Card from '../components/Card.astro'
 
@@ -17,6 +19,8 @@ const seo = {
 
 // Monogram Logo
 import monogramLogo from '../assets/monogram.png'
+
+const pageData = await getPage()
 ---
 
 <Layout seo={seo}>
@@ -52,6 +56,9 @@ import monogramLogo from '../assets/monogram.png'
 		<div class="mt-6">
 			<Image src={monogramLogo} alt="Monogram Logo" width={150} height={150} />
 		</div>
+
+		<h2>{pageData.page?.name}</h2>
+		<p>{pageData.page?.slug}</p>
 	</main>
 </Layout>
 

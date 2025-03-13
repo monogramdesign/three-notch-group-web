@@ -8,18 +8,31 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"generate": "graphql-codegen --watch",
+		"codegen": "graphql-codegen --config codegen.ts"
 	},
 	"dependencies": {
 		"@astrojs/tailwind": "^6.0.0",
 		"@astrojs/vercel": "^8.1.2",
+		"@datocms/cda-client": "^0.2.6",
+		"@graphql-codegen/cli": "^5.0.5",
+		"@graphql-codegen/typescript": "^4.1.5",
+		"@graphql-codegen/typescript-graphql-request": "^6.2.0",
+		"@graphql-codegen/typescript-operations": "^4.5.1",
 		"@tailwindcss/vite": "^4.0.13",
 		"astro": "^5.4.3",
+		"datocms-listen": "^1.0.2",
+		"graphql": "^16.10.0",
+		"graphql-request": "5.1.0",
+		"graphql-tag": "^2.12.6",
 		"sass": "^1.71.1",
 		"sharp": "^0.33.2",
 		"tailwindcss": "^4.0.13"
 	},
 	"devDependencies": {
+		"@types/dotenv": "^8.2.3",
+		"dotenv": "^16.4.7",
 		"prettier": "^3.2.5",
 		"prettier-plugin-astro": "^0.14.1"
 	}
