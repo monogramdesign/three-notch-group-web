@@ -11,10 +11,10 @@ const { sections } = Astro.props
 
 {
 	sections && (
-		<main>
+		<>
 			{sections.map((section: any) => (
 				<PageSection section={section} />
 			))}
-		</main>
+		</>
 	)
 }
