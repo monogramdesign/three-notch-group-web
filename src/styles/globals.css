@@ -1,1 +1,63 @@
+/*!
+*
+*  //\\
+* //XX\\
+*
+* Made by Monogram. https://monogram.io
+* ------------------------------------------------------------------------------
+* Copyright (c) 2025 Monogram. All rights reserved.
+* Contains open-source software. https://monogram.io/licenses.txt
+*/
+
 @import 'tailwindcss';
+
+:root {
+	--foreground: 0 0% 100%;
+	--background: 0 0% 3%;
+	--orange-100: 15, 40%, 79%;
+	--orange-300: 13, 36%, 52%;
+	--orange-350: 25, 100%, 47%;
+	--orange-400: 25, 85%, 50%;
+	--orange-800: 25, 85%, 40%;
+	--orange-900: 25, 85%, 30%;
+}
+
+@theme {
+	--color-foreground: hsl(var(--foreground)); /* #ffffff */
+	--color-background: hsl(var(--background)); /* #070707 */
+	--color-orange-100: hsl(var(--orange-100)); /* #dfbfb4 */
+	--color-orange-300: hsl(var(--orange-300)); /* #b06a57 */
+	--color-orange-350: hsl(var(--orange-350)); /* #F06400 */
+	--color-orange-400: hsl(var(--orange-400)); /* #CC5500 */
+	--color-orange-800: hsl(var(--orange-800)); /* #8D4004 */
+	--color-orange-900: hsl(var(--orange-900)); /* #411C01 */
+
+	--ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+	--m-ease-out: cubic-bezier(0.082, 0.234, 0.246, 0.988);
+	--m-ease-in: cubic-bezier(1, 0.17, 0.887, 0.811);
+}
+
+html {
+	@apply text-foreground bg-background scroll-smooth overflow-x-clip;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-font-smoothing: antialiased;
+}
+
+body {
+	@apply min-h-dvh;
+}
+
+img {
+	@apply bg-white/10 rounded-sm;
+}
+
+.container {
+	@apply px-4 md:px-8 lg:px-16 mx-auto;
+}
+
+@layer base {
+}
+
+@layer components {
+}

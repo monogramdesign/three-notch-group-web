@@ -1,16 +1,26 @@
 ---
 import type { HomeHeroFragment } from '../../generated/graphql'
+import { Image } from 'astro:assets'
 
 type Props = Pick<HomeHeroFragment, 'title' | 'description' | 'backgroundImage'>
 
 const { title, description, backgroundImage } = Astro.props
 ---
 
-<section
-	class="relative min-h-[80vh] flex items-center justify-center"
-	style={`background-image: url(${backgroundImage?.responsiveImage?.src}); background-size: cover; background-position: center;`}
->
-	<div class="absolute inset-0 bg-black/50"></div>
+<section class="home-hero relative min-h-[80vh] flex items-center justify-center bg-gray-900">
+	{
+		backgroundImage?.responsiveImage?.src && (
+			<Image
+				src={backgroundImage.responsiveImage.src}
+				alt={title || 'Hero background'}
+				width={1920}
+				height={1080}
+				class="absolute inset-0 w-full h-full object-cover opacity-75"
+				priority
+				quality="max"
+			/>
+		)
+	}
 	<div class="relative z-10 container mx-auto px-4 text-center text-white">
 		<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
 			{title}

@@ -8,16 +8,22 @@ export default defineConfig({
 		plugins: [tailwindcss()]
 	},
 	image: {
-		service: sharpImageService()
+		service: sharpImageService(),
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'www.datocms-assets.com',
+				pathname: '/**'
+			}
+		]
 	},
-
 	output: 'server',
 	adapter: vercel({
 		analytics: true,
 		imageService: true,
 		imagesConfig: {
 			sizes: [150, 320, 640, 1280],
-			domains: ['images.unsplash.com']
+			domains: ['www.datocms-assets.com', 'images.unsplash.com']
 		}
 	})
 })

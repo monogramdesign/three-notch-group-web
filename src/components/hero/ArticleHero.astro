@@ -1,26 +1,49 @@
 ---
 import type { ArticleHeroFragment } from '../../generated/graphql'
+import { Image } from 'astro:assets'
 
 type Props = Pick<ArticleHeroFragment, 'title' | 'topic' | 'image' | 'date'>
 
 const { title, topic, image, date } = Astro.props
 ---
 
-<section>
-	<div class="container mx-auto px-4">
-		<div class="flex flex-col items-center justify-center">
+<section class="article-hero border border-blue-500">
+	<div class="flex">
+		<!-- Text Side -->
+		<div class="w-3/5 flex flex-col items-center justify-center border border-green-500">
+			<!-- TODO: title class -->
 			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
 				{title}
 			</h1>
 			<p class="text-lg md:text-xl max-w-2xl mx-auto">
 				{topic}
 			</p>
-			<p class="text-lg md:text-xl max-w-2xl mx-auto">
-				{image?.responsiveImage?.src}
-			</p>
+
 			<p class="text-lg md:text-xl max-w-2xl mx-auto">
 				{date}
 			</p>
+		</div>
+
+		<!-- Image Side -->
+		<!-- TODO: add notch -->
+		<div class="relative w-2/5 aspect-[16/9] border border-red-500">
+			{
+				image?.responsiveImage?.src ? (
+					<Image
+						src={image.responsiveImage.src}
+						alt={image.responsiveImage.alt || 'Article Hero background'}
+						width={1920}
+						height={1080}
+						class="absolute inset-0 w-full h-full object-cover"
+						priority
+						quality="max"
+					/>
+				) : (
+					<div class="absolute inset-0 w-full h-full bg-gray-900">
+						<p>No image</p>
+					</div>
+				)
+			}
 		</div>
 	</div>
 </section>
