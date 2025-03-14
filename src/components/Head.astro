@@ -9,23 +9,21 @@ const { title, description, image, url } = Astro.props
 ---
 
 <head>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+	<meta charset="UTF-8" />
+	<meta name="description" content={description} />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<meta name="generator" content={Astro.generator} />
 
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={url} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta
-			property="og:image"
-			content="https://images.unsplash.com/photo-1614849286447-fb815456e5a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
-		/>
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={url} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta
+		property="og:image"
+		content="https://images.unsplash.com/photo-1614849286447-fb815456e5a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
+	/>
 
-		<title>{title}</title>
-	</head>
+	<title>{title}</title>
 </head>
