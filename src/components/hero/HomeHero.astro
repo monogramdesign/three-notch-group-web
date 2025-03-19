@@ -5,6 +5,7 @@ import { Image } from 'astro:assets'
 type Props = Pick<HomeHeroFragment, 'title' | 'description' | 'backgroundImage'>
 
 const { title, description, backgroundImage } = Astro.props
+console.log('backgroundImage', backgroundImage)
 ---
 
 <section class="home-hero relative min-h-[80vh] flex items-center justify-center bg-gray-900">

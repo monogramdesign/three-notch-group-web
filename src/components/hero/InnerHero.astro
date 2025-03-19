@@ -18,9 +18,11 @@ const { title, description, backgroundImage, variation, eyebrow } = Astro.props
 			<p class="text-lg md:text-xl max-w-2xl mx-auto">
 				{description}
 			</p>
-			<p class="text-lg md:text-xl max-w-2xl mx-auto">
-				{backgroundImage[0].url}
-			</p>
+			{
+				backgroundImage && (
+					<p class="text-lg md:text-xl max-w-2xl mx-auto">{backgroundImage[0].url}</p>
+				)
+			}
 			<p class="text-lg md:text-xl max-w-2xl mx-auto">
 				{variation}
 			</p>

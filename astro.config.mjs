@@ -14,6 +14,16 @@ export default defineConfig({
 				protocol: 'https',
 				hostname: 'www.datocms-assets.com',
 				pathname: '/**'
+			},
+			{
+				protocol: 'https',
+				hostname: 'rstr.in',
+				pathname: '/**'
+			},
+			{
+				protocol: 'https',
+				hostname: 'cdn.raster.app',
+				pathname: '/**'
 			}
 		]
 	},
@@ -23,7 +33,7 @@ export default defineConfig({
 		imageService: true,
 		imagesConfig: {
 			sizes: [150, 320, 640, 1280],
-			domains: ['www.datocms-assets.com', 'images.unsplash.com']
+			domains: ['www.datocms-assets.com', 'images.unsplash.com', 'rstr.in', 'cdn.raster.app']
 		}
 	})
 })

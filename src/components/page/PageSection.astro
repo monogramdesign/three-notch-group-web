@@ -17,20 +17,7 @@ type Props = {
 const { section } = Astro.props
 ---
 
-<switch values={section.__typename}>
-	<case value="HomeHeroRecord">
-		<HomeHero {...section} />
-	</case>
-
-	<case value="InnerHeroRecord">
-		<InnerHero {...section} />
-	</case>
-
-	<case value="ArticleHeroRecord">
-		<ArticleHero {...section} />
-	</case>
-
-	<case value="FormRecord">
-		<Form {...section as FormFragment} />
-	</case>
-</switch>
+{section.__typename === 'HomeHeroRecord' && <HomeHero {...section} />}
+{section.__typename === 'InnerHeroRecord' && <InnerHero {...section} />}
+{section.__typename === 'ArticleHeroRecord' && <ArticleHero {...section} />}
+{section.__typename === 'FormRecord' && <Form {...(section as FormFragment)} />}
