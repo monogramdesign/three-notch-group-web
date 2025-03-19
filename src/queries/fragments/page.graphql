@@ -2,13 +2,7 @@ fragment PageFragment on PageRecord {
 	id
 	name
 	slug
-	thumbnailImage {
-		id
-		responsiveImage {
-			src
-			alt
-		}
-	}
+	thumbnailImage
 	sections {
 		... on ArticleHeroRecord {
 			...ArticleHero
@@ -29,36 +23,19 @@ fragment PageFragment on PageRecord {
 					content {
 						blocks {
 							id
-							image {
-								responsiveImage {
-									alt
-									src
-								}
-							}
+							image
 						}
 						links
 						value
 					}
-					thumbnailImage {
-						id
-						responsiveImage {
-							alt
-							src
-						}
-					}
+					thumbnailImage
 				}
 				... on PageRecord {
 					__typename
 					id
 					name
 					slug
-					thumbnailImage {
-						id
-						responsiveImage {
-							alt
-							src
-						}
-					}
+					thumbnailImage
 				}
 			}
 		}

@@ -13,6 +13,7 @@ const { title, variation, submitLink, items } = Astro.props
 			items?.map((item) => (
 				<div>
 					<label for={item.id}>{item.label}</label>
+					<input type="text" name={item.id} />
 				</div>
 			))
 		}

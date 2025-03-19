@@ -3,11 +3,6 @@ fragment ArticleHero on ArticleHeroRecord {
 	id
 	title
 	topic
-	image {
-		responsiveImage {
-			src
-			alt
-		}
-	}
+	image
 	date
 }

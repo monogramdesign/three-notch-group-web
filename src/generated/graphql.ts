@@ -49,7 +49,7 @@ export type ArticleHeroRecord = RecordInterface & {
 	_updatedAt: Scalars['DateTime']['output']
 	date?: Maybe<Scalars['Date']['output']>
 	id: Scalars['ItemId']['output']
-	image?: Maybe<FileField>
+	image?: Maybe<Scalars['JsonField']['output']>
 	title?: Maybe<Scalars['String']['output']>
 	topic?: Maybe<Scalars['String']['output']>
 }
@@ -80,7 +80,7 @@ export type ArticleModelFilter = {
 	category?: InputMaybe<LinkFilter>
 	content?: InputMaybe<StructuredTextFilter>
 	id?: InputMaybe<ItemIdFilter>
-	thumbnailImage?: InputMaybe<FileFilter>
+	thumbnailImage?: InputMaybe<JsonFilter>
 }
 
 export enum ArticleModelOrderBy {
@@ -123,7 +123,7 @@ export type ArticleRecord = RecordInterface & {
 	category?: Maybe<CategoryRecord>
 	content?: Maybe<ArticleModelContentField>
 	id: Scalars['ItemId']['output']
-	thumbnailImage?: Maybe<FileField>
+	thumbnailImage?: Maybe<Scalars['JsonField']['output']>
 }
 
 /** Record of type Article (article) */
@@ -294,7 +294,7 @@ export type EmbedImageRecord = RecordInterface & {
 	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
 	_updatedAt: Scalars['DateTime']['output']
 	id: Scalars['ItemId']['output']
-	image?: Maybe<FileField>
+	image?: Maybe<Scalars['JsonField']['output']>
 }
 
 /** Block of type Embed Image (embed_image) */
@@ -449,20 +449,6 @@ export type FileFieldInterfaceTitleArgs = {
 
 export type FileFieldInterfaceUrlArgs = {
 	imgixParams?: InputMaybe<ImgixParams>
-}
-
-/** Specifies how to filter Single-file/image fields */
-export type FileFilter = {
-	/** Search for records with an exact match. The specified value must be an Upload ID */
-	eq?: InputMaybe<Scalars['UploadId']['input']>
-	/** Filter records with the specified field defined (i.e. with any value) or not */
-	exists?: InputMaybe<Scalars['BooleanType']['input']>
-	/** Filter records that have one of the specified uploads */
-	in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>
-	/** Exclude records with an exact match. The specified value must be an Upload ID */
-	neq?: InputMaybe<Scalars['UploadId']['input']>
-	/** Filter records that do not have one of the specified uploads */
-	notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>
 }
 
 /** Block of type Form Item (form_item) */
@@ -2439,6 +2425,12 @@ export enum ItemStatus {
 	Updated = 'updated'
 }
 
+/** Specifies how to filter JSON fields */
+export type JsonFilter = {
+	/** Filter records with the specified field defined (i.e. with any value) or not */
+	exists?: InputMaybe<Scalars['BooleanType']['input']>
+}
+
 /** Specifies how to filter Single-link fields */
 export type LinkFilter = {
 	/** Search for records with an exact match. The specified value must be a Record ID */
@@ -2481,7 +2473,7 @@ export type PageModelFilter = {
 	id?: InputMaybe<ItemIdFilter>
 	name?: InputMaybe<StringFilter>
 	slug?: InputMaybe<SlugFilter>
-	thumbnailImage?: InputMaybe<FileFilter>
+	thumbnailImage?: InputMaybe<JsonFilter>
 }
 
 export enum PageModelOrderBy {
@@ -2534,7 +2526,7 @@ export type PageRecord = RecordInterface & {
 	name?: Maybe<Scalars['String']['output']>
 	sections: Array<PageModelSectionsField>
 	slug?: Maybe<Scalars['String']['output']>
-	thumbnailImage?: Maybe<FileField>
+	thumbnailImage?: Maybe<Scalars['JsonField']['output']>
 }
 
 /** Record of type Page (page) */
@@ -3251,11 +3243,8 @@ export type ArticleHeroFragment = {
 	id: any
 	title?: string | null
 	topic?: string | null
+	image?: any | null
 	date?: any | null
-	image?: {
-		__typename?: 'FileField'
-		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
-	} | null
 }
 
 export type FormFragment = {
@@ -3301,26 +3290,15 @@ export type PageFragmentFragment = {
 	id: any
 	name?: string | null
 	slug?: string | null
-	thumbnailImage?: {
-		__typename?: 'FileField'
-		id: any
-		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
-	} | null
+	thumbnailImage?: any | null
 	sections: Array<
 		| {
 				__typename: 'ArticleHeroRecord'
 				id: any
 				title?: string | null
 				topic?: string | null
+				image?: any | null
 				date?: any | null
-				image?: {
-					__typename?: 'FileField'
-					responsiveImage?: {
-						__typename?: 'ResponsiveImage'
-						src: string
-						alt?: string | null
-					} | null
-				} | null
 		  }
 		| {
 				__typename: 'CardStackRecord'
@@ -3331,32 +3309,13 @@ export type PageFragmentFragment = {
 					| {
 							__typename: 'ArticleRecord'
 							id: any
+							thumbnailImage?: any | null
 							category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
 							content?: {
 								__typename?: 'ArticleModelContentField'
 								links: Array<string>
 								value: any
-								blocks: Array<{
-									__typename?: 'EmbedImageRecord'
-									id: any
-									image?: {
-										__typename?: 'FileField'
-										responsiveImage?: {
-											__typename?: 'ResponsiveImage'
-											alt?: string | null
-											src: string
-										} | null
-									} | null
-								}>
-							} | null
-							thumbnailImage?: {
-								__typename?: 'FileField'
-								id: any
-								responsiveImage?: {
-									__typename?: 'ResponsiveImage'
-									alt?: string | null
-									src: string
-								} | null
+								blocks: Array<{ __typename?: 'EmbedImageRecord'; id: any; image?: any | null }>
 							} | null
 					  }
 					| {
@@ -3364,15 +3323,7 @@ export type PageFragmentFragment = {
 							id: any
 							name?: string | null
 							slug?: string | null
-							thumbnailImage?: {
-								__typename?: 'FileField'
-								id: any
-								responsiveImage?: {
-									__typename?: 'ResponsiveImage'
-									alt?: string | null
-									src: string
-								} | null
-							} | null
+							thumbnailImage?: any | null
 					  }
 				>
 		  }
@@ -3425,26 +3376,15 @@ export type PageQuery = {
 		id: any
 		name?: string | null
 		slug?: string | null
-		thumbnailImage?: {
-			__typename?: 'FileField'
-			id: any
-			responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
-		} | null
+		thumbnailImage?: any | null
 		sections: Array<
 			| {
 					__typename: 'ArticleHeroRecord'
 					id: any
 					title?: string | null
 					topic?: string | null
+					image?: any | null
 					date?: any | null
-					image?: {
-						__typename?: 'FileField'
-						responsiveImage?: {
-							__typename?: 'ResponsiveImage'
-							src: string
-							alt?: string | null
-						} | null
-					} | null
 			  }
 			| {
 					__typename: 'CardStackRecord'
@@ -3455,32 +3395,13 @@ export type PageQuery = {
 						| {
 								__typename: 'ArticleRecord'
 								id: any
+								thumbnailImage?: any | null
 								category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
 								content?: {
 									__typename?: 'ArticleModelContentField'
 									links: Array<string>
 									value: any
-									blocks: Array<{
-										__typename?: 'EmbedImageRecord'
-										id: any
-										image?: {
-											__typename?: 'FileField'
-											responsiveImage?: {
-												__typename?: 'ResponsiveImage'
-												alt?: string | null
-												src: string
-											} | null
-										} | null
-									}>
-								} | null
-								thumbnailImage?: {
-									__typename?: 'FileField'
-									id: any
-									responsiveImage?: {
-										__typename?: 'ResponsiveImage'
-										alt?: string | null
-										src: string
-									} | null
+									blocks: Array<{ __typename?: 'EmbedImageRecord'; id: any; image?: any | null }>
 								} | null
 						  }
 						| {
@@ -3488,15 +3409,7 @@ export type PageQuery = {
 								id: any
 								name?: string | null
 								slug?: string | null
-								thumbnailImage?: {
-									__typename?: 'FileField'
-									id: any
-									responsiveImage?: {
-										__typename?: 'ResponsiveImage'
-										alt?: string | null
-										src: string
-									} | null
-								} | null
+								thumbnailImage?: any | null
 						  }
 					>
 			  }
@@ -3548,26 +3461,15 @@ export type HomePageQuery = {
 		id: any
 		name?: string | null
 		slug?: string | null
-		thumbnailImage?: {
-			__typename?: 'FileField'
-			id: any
-			responsiveImage?: { __typename?: 'ResponsiveImage'; src: string; alt?: string | null } | null
-		} | null
+		thumbnailImage?: any | null
 		sections: Array<
 			| {
 					__typename: 'ArticleHeroRecord'
 					id: any
 					title?: string | null
 					topic?: string | null
+					image?: any | null
 					date?: any | null
-					image?: {
-						__typename?: 'FileField'
-						responsiveImage?: {
-							__typename?: 'ResponsiveImage'
-							src: string
-							alt?: string | null
-						} | null
-					} | null
 			  }
 			| {
 					__typename: 'CardStackRecord'
@@ -3578,32 +3480,13 @@ export type HomePageQuery = {
 						| {
 								__typename: 'ArticleRecord'
 								id: any
+								thumbnailImage?: any | null
 								category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
 								content?: {
 									__typename?: 'ArticleModelContentField'
 									links: Array<string>
 									value: any
-									blocks: Array<{
-										__typename?: 'EmbedImageRecord'
-										id: any
-										image?: {
-											__typename?: 'FileField'
-											responsiveImage?: {
-												__typename?: 'ResponsiveImage'
-												alt?: string | null
-												src: string
-											} | null
-										} | null
-									}>
-								} | null
-								thumbnailImage?: {
-									__typename?: 'FileField'
-									id: any
-									responsiveImage?: {
-										__typename?: 'ResponsiveImage'
-										alt?: string | null
-										src: string
-									} | null
+									blocks: Array<{ __typename?: 'EmbedImageRecord'; id: any; image?: any | null }>
 								} | null
 						  }
 						| {
@@ -3611,15 +3494,7 @@ export type HomePageQuery = {
 								id: any
 								name?: string | null
 								slug?: string | null
-								thumbnailImage?: {
-									__typename?: 'FileField'
-									id: any
-									responsiveImage?: {
-										__typename?: 'ResponsiveImage'
-										alt?: string | null
-										src: string
-									} | null
-								} | null
+								thumbnailImage?: any | null
 						  }
 					>
 			  }
@@ -3668,12 +3543,7 @@ export const ArticleHeroFragmentDoc = gql`
 		id
 		title
 		topic
-		image {
-			responsiveImage {
-				src
-				alt
-			}
-		}
+		image
 		date
 	}
 `
@@ -3723,13 +3593,7 @@ export const PageFragmentFragmentDoc = gql`
 		id
 		name
 		slug
-		thumbnailImage {
-			id
-			responsiveImage {
-				src
-				alt
-			}
-		}
+		thumbnailImage
 		sections {
 			... on ArticleHeroRecord {
 				...ArticleHero
@@ -3750,36 +3614,19 @@ export const PageFragmentFragmentDoc = gql`
 						content {
 							blocks {
 								id
-								image {
-									responsiveImage {
-										alt
-										src
-									}
-								}
+								image
 							}
 							links
 							value
 						}
-						thumbnailImage {
-							id
-							responsiveImage {
-								alt
-								src
-							}
-						}
+						thumbnailImage
 					}
 					... on PageRecord {
 						__typename
 						id
 						name
 						slug
-						thumbnailImage {
-							id
-							responsiveImage {
-								alt
-								src
-							}
-						}
+						thumbnailImage
 					}
 				}
 			}
