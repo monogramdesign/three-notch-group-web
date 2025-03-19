@@ -8,36 +8,7 @@ fragment PageFragment on PageRecord {
 			...ArticleHero
 		}
 		... on CardStackRecord {
-			__typename
-			id
-			title
-			categories
-			items {
-				... on ArticleRecord {
-					__typename
-					id
-					category {
-						id
-						name
-					}
-					content {
-						blocks {
-							id
-							image
-						}
-						links
-						value
-					}
-					thumbnailImage
-				}
-				... on PageRecord {
-					__typename
-					id
-					name
-					slug
-					thumbnailImage
-				}
-			}
+			...CardStack
 		}
 		... on FormRecord {
 			...Form

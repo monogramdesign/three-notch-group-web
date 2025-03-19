@@ -1,0 +1,19 @@
+fragment Article on ArticleRecord {
+	__typename
+	id
+	title
+	thumbnailImage
+	content {
+		value
+		blocks {
+			__typename
+			id
+			image
+		}
+	}
+	slug
+	category {
+		id
+		name
+	}
+}

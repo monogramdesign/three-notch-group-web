@@ -1,0 +1,31 @@
+---
+import type { CardStackFragment } from '../../generated/graphql'
+import Card from './Card.astro'
+import { extractCardData } from './utils'
+
+type Props = Readonly<CardStackFragment>
+
+const { sectionTitle, contentType, itemsPage, itemsArticle, itemsInfocard } = Astro.props
+
+const items =
+	contentType === 'pages' ? itemsPage : contentType === 'articles' ? itemsArticle : itemsInfocard
+---
+
+<section class="simple-card-stack py-8 bg-[#DBE1DE]">
+	{sectionTitle && <h2 class="font-bold text-2xl mb-6">{sectionTitle}</h2>}
+
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+		{
+			items?.map((item) => {
+				const { title, imageUrl, slug } = extractCardData(item, contentType || '')
+				return <Card title={title} imageUrl={imageUrl} slug={slug} />
+			})
+		}
+	</div>
+
+	{/* Bottom Text Placeholder with Arrow */}
+	<div class="mt-16 bg-black text-white p-4 flex justify-between items-center">
+		<span>Text Placeholder</span>
+		<span class="text-xl">→</span>
+	</div>
+</section>

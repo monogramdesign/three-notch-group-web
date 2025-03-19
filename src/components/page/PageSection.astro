@@ -3,15 +3,22 @@ import type {
 	HomeHeroFragment,
 	InnerHeroFragment,
 	ArticleHeroFragment,
-	FormFragment
+	FormFragment,
+	CardStackFragment
 } from '../../generated/graphql'
 import InnerHero from '../hero/InnerHero.astro'
 import HomeHero from '../hero/HomeHero.astro'
 import ArticleHero from '../hero/ArticleHero.astro'
 import Form from '../form/Form.astro'
+import CardStack from '../cardStack/CardStack.astro'
 
 type Props = {
-	section: HomeHeroFragment | InnerHeroFragment | ArticleHeroFragment | FormFragment
+	section:
+		| HomeHeroFragment
+		| InnerHeroFragment
+		| ArticleHeroFragment
+		| FormFragment
+		| CardStackFragment
 }
 
 const { section } = Astro.props
@@ -21,3 +28,4 @@ const { section } = Astro.props
 {section.__typename === 'InnerHeroRecord' && <InnerHero {...section} />}
 {section.__typename === 'ArticleHeroRecord' && <ArticleHero {...section} />}
 {section.__typename === 'FormRecord' && <Form {...(section as FormFragment)} />}
+{section.__typename === 'CardStackRecord' && <CardStack {...(section as CardStackFragment)} />}

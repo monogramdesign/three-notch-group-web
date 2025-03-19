@@ -80,7 +80,9 @@ export type ArticleModelFilter = {
 	category?: InputMaybe<LinkFilter>
 	content?: InputMaybe<StructuredTextFilter>
 	id?: InputMaybe<ItemIdFilter>
+	slug?: InputMaybe<SlugFilter>
 	thumbnailImage?: InputMaybe<JsonFilter>
+	title?: InputMaybe<StringFilter>
 }
 
 export enum ArticleModelOrderBy {
@@ -101,7 +103,9 @@ export enum ArticleModelOrderBy {
 	UpdatedAtAsc = '_updatedAt_ASC',
 	UpdatedAtDesc = '_updatedAt_DESC',
 	IdAsc = 'id_ASC',
-	IdDesc = 'id_DESC'
+	IdDesc = 'id_DESC',
+	TitleAsc = 'title_ASC',
+	TitleDesc = 'title_DESC'
 }
 
 /** Record of type Article (article) */
@@ -123,7 +127,9 @@ export type ArticleRecord = RecordInterface & {
 	category?: Maybe<CategoryRecord>
 	content?: Maybe<ArticleModelContentField>
 	id: Scalars['ItemId']['output']
+	slug?: Maybe<Scalars['String']['output']>
 	thumbnailImage?: Maybe<Scalars['JsonField']['output']>
+	title?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Article (article) */
@@ -136,8 +142,6 @@ export type BooleanFilter = {
 	/** Search for records with an exact match */
 	eq?: InputMaybe<Scalars['BooleanType']['input']>
 }
-
-export type CardStackModelItemsField = ArticleRecord | PageRecord
 
 /** Block of type Card Stack (card_stack) */
 export type CardStackRecord = RecordInterface & {
@@ -155,10 +159,14 @@ export type CardStackRecord = RecordInterface & {
 	_status: ItemStatus
 	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
 	_updatedAt: Scalars['DateTime']['output']
-	categories: Array<Scalars['String']['output']>
+	accordionTitle?: Maybe<Scalars['String']['output']>
+	contentType?: Maybe<Scalars['String']['output']>
 	id: Scalars['ItemId']['output']
-	items: Array<CardStackModelItemsField>
-	title?: Maybe<Scalars['String']['output']>
+	itemsArticle: Array<ArticleRecord>
+	itemsInfocard: Array<InfoCardRecord>
+	itemsPage: Array<PageRecord>
+	sectionTitle?: Maybe<Scalars['String']['output']>
+	variation?: Maybe<Scalars['String']['output']>
 }
 
 /** Block of type Card Stack (card_stack) */
@@ -2373,6 +2381,75 @@ export type InUseFilter = {
 	eq?: InputMaybe<Scalars['BooleanType']['input']>
 }
 
+export type InfoCardModelFilter = {
+	AND?: InputMaybe<Array<InputMaybe<InfoCardModelFilter>>>
+	OR?: InputMaybe<Array<InputMaybe<InfoCardModelFilter>>>
+	_createdAt?: InputMaybe<CreatedAtFilter>
+	_firstPublishedAt?: InputMaybe<PublishedAtFilter>
+	_isValid?: InputMaybe<BooleanFilter>
+	_publicationScheduledAt?: InputMaybe<PublishedAtFilter>
+	_publishedAt?: InputMaybe<PublishedAtFilter>
+	_status?: InputMaybe<StatusFilter>
+	_unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>
+	_updatedAt?: InputMaybe<UpdatedAtFilter>
+	id?: InputMaybe<ItemIdFilter>
+	image?: InputMaybe<JsonFilter>
+	subcopy?: InputMaybe<StringFilter>
+	title?: InputMaybe<StringFilter>
+}
+
+export enum InfoCardModelOrderBy {
+	CreatedAtAsc = '_createdAt_ASC',
+	CreatedAtDesc = '_createdAt_DESC',
+	FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+	FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+	IsValidAsc = '_isValid_ASC',
+	IsValidDesc = '_isValid_DESC',
+	PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+	PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+	PublishedAtAsc = '_publishedAt_ASC',
+	PublishedAtDesc = '_publishedAt_DESC',
+	StatusAsc = '_status_ASC',
+	StatusDesc = '_status_DESC',
+	UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+	UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+	UpdatedAtAsc = '_updatedAt_ASC',
+	UpdatedAtDesc = '_updatedAt_DESC',
+	IdAsc = 'id_ASC',
+	IdDesc = 'id_DESC',
+	SubcopyAsc = 'subcopy_ASC',
+	SubcopyDesc = 'subcopy_DESC',
+	TitleAsc = 'title_ASC',
+	TitleDesc = 'title_DESC'
+}
+
+/** Record of type Info Card (info_card) */
+export type InfoCardRecord = RecordInterface & {
+	__typename?: 'InfoCardRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	image?: Maybe<Scalars['JsonField']['output']>
+	subcopy?: Maybe<Scalars['String']['output']>
+	title?: Maybe<Scalars['String']['output']>
+}
+
+/** Record of type Info Card (info_card) */
+export type InfoCardRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
 /** Block of type Inner Hero (inner_hero) */
 export type InnerHeroRecord = RecordInterface & {
 	__typename?: 'InnerHeroRecord'
@@ -2560,6 +2637,8 @@ export type Query = {
 	/** Returns meta information regarding a record collection */
 	_allCategoriesMeta: CollectionMetadata
 	/** Returns meta information regarding a record collection */
+	_allInfoCardsMeta: CollectionMetadata
+	/** Returns meta information regarding a record collection */
 	_allPagesMeta: CollectionMetadata
 	/** Returns meta information regarding an assets collection */
 	_allUploadsMeta: CollectionMetadata
@@ -2570,6 +2649,8 @@ export type Query = {
 	/** Returns a collection of records */
 	allCategories: Array<CategoryRecord>
 	/** Returns a collection of records */
+	allInfoCards: Array<InfoCardRecord>
+	/** Returns a collection of records */
 	allPages: Array<PageRecord>
 	/** Returns a collection of assets */
 	allUploads: Array<FileField>
@@ -2577,6 +2658,8 @@ export type Query = {
 	article?: Maybe<ArticleRecord>
 	/** Returns a specific record */
 	category?: Maybe<CategoryRecord>
+	/** Returns a specific record */
+	infoCard?: Maybe<InfoCardRecord>
 	/** Returns a specific record */
 	page?: Maybe<PageRecord>
 	/** Returns a specific asset */
@@ -2592,6 +2675,12 @@ export type Query_AllArticlesMetaArgs = {
 /** The query root for this schema */
 export type Query_AllCategoriesMetaArgs = {
 	filter?: InputMaybe<CategoryModelFilter>
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** The query root for this schema */
+export type Query_AllInfoCardsMetaArgs = {
+	filter?: InputMaybe<InfoCardModelFilter>
 	locale?: InputMaybe<SiteLocale>
 }
 
@@ -2634,6 +2723,16 @@ export type QueryAllCategoriesArgs = {
 }
 
 /** The query root for this schema */
+export type QueryAllInfoCardsArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	filter?: InputMaybe<InfoCardModelFilter>
+	first?: InputMaybe<Scalars['IntType']['input']>
+	locale?: InputMaybe<SiteLocale>
+	orderBy?: InputMaybe<Array<InputMaybe<InfoCardModelOrderBy>>>
+	skip?: InputMaybe<Scalars['IntType']['input']>
+}
+
+/** The query root for this schema */
 export type QueryAllPagesArgs = {
 	fallbackLocales?: InputMaybe<Array<SiteLocale>>
 	filter?: InputMaybe<PageModelFilter>
@@ -2667,6 +2766,14 @@ export type QueryCategoryArgs = {
 	filter?: InputMaybe<CategoryModelFilter>
 	locale?: InputMaybe<SiteLocale>
 	orderBy?: InputMaybe<Array<InputMaybe<CategoryModelOrderBy>>>
+}
+
+/** The query root for this schema */
+export type QueryInfoCardArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	filter?: InputMaybe<InfoCardModelFilter>
+	locale?: InputMaybe<SiteLocale>
+	orderBy?: InputMaybe<Array<InputMaybe<InfoCardModelOrderBy>>>
 }
 
 /** The query root for this schema */
@@ -3238,6 +3345,20 @@ export type FocalPoint = {
 	y: Scalars['FloatType']['output']
 }
 
+export type ArticleFragment = {
+	__typename: 'ArticleRecord'
+	id: any
+	title?: string | null
+	thumbnailImage?: any | null
+	slug?: string | null
+	content?: {
+		__typename?: 'ArticleModelContentField'
+		value: any
+		blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
+	} | null
+	category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+}
+
 export type ArticleHeroFragment = {
 	__typename: 'ArticleHeroRecord'
 	id: any
@@ -3245,6 +3366,42 @@ export type ArticleHeroFragment = {
 	topic?: string | null
 	image?: any | null
 	date?: any | null
+}
+
+export type CardStackFragment = {
+	__typename: 'CardStackRecord'
+	id: any
+	sectionTitle?: string | null
+	variation?: string | null
+	contentType?: string | null
+	accordionTitle?: string | null
+	itemsPage: Array<{
+		__typename?: 'PageRecord'
+		id: any
+		name?: string | null
+		slug?: string | null
+		thumbnailImage?: any | null
+	}>
+	itemsArticle: Array<{
+		__typename: 'ArticleRecord'
+		id: any
+		title?: string | null
+		thumbnailImage?: any | null
+		slug?: string | null
+		content?: {
+			__typename?: 'ArticleModelContentField'
+			value: any
+			blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
+		} | null
+		category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+	}>
+	itemsInfocard: Array<{
+		__typename: 'InfoCardRecord'
+		id: any
+		title?: string | null
+		image?: any | null
+		subcopy?: string | null
+	}>
 }
 
 export type FormFragment = {
@@ -3275,6 +3432,14 @@ export type HomeHeroFragment = {
 	backgroundImage?: any | null
 }
 
+export type InfoCardFragment = {
+	__typename: 'InfoCardRecord'
+	id: any
+	title?: string | null
+	image?: any | null
+	subcopy?: string | null
+}
+
 export type InnerHeroFragment = {
 	__typename: 'InnerHeroRecord'
 	id: any
@@ -3303,29 +3468,37 @@ export type PageFragmentFragment = {
 		| {
 				__typename: 'CardStackRecord'
 				id: any
-				title?: string | null
-				categories: Array<string>
-				items: Array<
-					| {
-							__typename: 'ArticleRecord'
-							id: any
-							thumbnailImage?: any | null
-							category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
-							content?: {
-								__typename?: 'ArticleModelContentField'
-								links: Array<string>
-								value: any
-								blocks: Array<{ __typename?: 'EmbedImageRecord'; id: any; image?: any | null }>
-							} | null
-					  }
-					| {
-							__typename: 'PageRecord'
-							id: any
-							name?: string | null
-							slug?: string | null
-							thumbnailImage?: any | null
-					  }
-				>
+				sectionTitle?: string | null
+				variation?: string | null
+				contentType?: string | null
+				accordionTitle?: string | null
+				itemsPage: Array<{
+					__typename?: 'PageRecord'
+					id: any
+					name?: string | null
+					slug?: string | null
+					thumbnailImage?: any | null
+				}>
+				itemsArticle: Array<{
+					__typename: 'ArticleRecord'
+					id: any
+					title?: string | null
+					thumbnailImage?: any | null
+					slug?: string | null
+					content?: {
+						__typename?: 'ArticleModelContentField'
+						value: any
+						blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
+					} | null
+					category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+				}>
+				itemsInfocard: Array<{
+					__typename: 'InfoCardRecord'
+					id: any
+					title?: string | null
+					image?: any | null
+					subcopy?: string | null
+				}>
 		  }
 		| {
 				__typename: 'FormRecord'
@@ -3389,29 +3562,37 @@ export type PageQuery = {
 			| {
 					__typename: 'CardStackRecord'
 					id: any
-					title?: string | null
-					categories: Array<string>
-					items: Array<
-						| {
-								__typename: 'ArticleRecord'
-								id: any
-								thumbnailImage?: any | null
-								category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
-								content?: {
-									__typename?: 'ArticleModelContentField'
-									links: Array<string>
-									value: any
-									blocks: Array<{ __typename?: 'EmbedImageRecord'; id: any; image?: any | null }>
-								} | null
-						  }
-						| {
-								__typename: 'PageRecord'
-								id: any
-								name?: string | null
-								slug?: string | null
-								thumbnailImage?: any | null
-						  }
-					>
+					sectionTitle?: string | null
+					variation?: string | null
+					contentType?: string | null
+					accordionTitle?: string | null
+					itemsPage: Array<{
+						__typename?: 'PageRecord'
+						id: any
+						name?: string | null
+						slug?: string | null
+						thumbnailImage?: any | null
+					}>
+					itemsArticle: Array<{
+						__typename: 'ArticleRecord'
+						id: any
+						title?: string | null
+						thumbnailImage?: any | null
+						slug?: string | null
+						content?: {
+							__typename?: 'ArticleModelContentField'
+							value: any
+							blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
+						} | null
+						category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+					}>
+					itemsInfocard: Array<{
+						__typename: 'InfoCardRecord'
+						id: any
+						title?: string | null
+						image?: any | null
+						subcopy?: string | null
+					}>
 			  }
 			| {
 					__typename: 'FormRecord'
@@ -3474,29 +3655,37 @@ export type HomePageQuery = {
 			| {
 					__typename: 'CardStackRecord'
 					id: any
-					title?: string | null
-					categories: Array<string>
-					items: Array<
-						| {
-								__typename: 'ArticleRecord'
-								id: any
-								thumbnailImage?: any | null
-								category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
-								content?: {
-									__typename?: 'ArticleModelContentField'
-									links: Array<string>
-									value: any
-									blocks: Array<{ __typename?: 'EmbedImageRecord'; id: any; image?: any | null }>
-								} | null
-						  }
-						| {
-								__typename: 'PageRecord'
-								id: any
-								name?: string | null
-								slug?: string | null
-								thumbnailImage?: any | null
-						  }
-					>
+					sectionTitle?: string | null
+					variation?: string | null
+					contentType?: string | null
+					accordionTitle?: string | null
+					itemsPage: Array<{
+						__typename?: 'PageRecord'
+						id: any
+						name?: string | null
+						slug?: string | null
+						thumbnailImage?: any | null
+					}>
+					itemsArticle: Array<{
+						__typename: 'ArticleRecord'
+						id: any
+						title?: string | null
+						thumbnailImage?: any | null
+						slug?: string | null
+						content?: {
+							__typename?: 'ArticleModelContentField'
+							value: any
+							blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
+						} | null
+						category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+					}>
+					itemsInfocard: Array<{
+						__typename: 'InfoCardRecord'
+						id: any
+						title?: string | null
+						image?: any | null
+						subcopy?: string | null
+					}>
 			  }
 			| {
 					__typename: 'FormRecord'
@@ -3546,6 +3735,60 @@ export const ArticleHeroFragmentDoc = gql`
 		image
 		date
 	}
+`
+export const ArticleFragmentDoc = gql`
+	fragment Article on ArticleRecord {
+		__typename
+		id
+		title
+		thumbnailImage
+		content {
+			value
+			blocks {
+				__typename
+				id
+				image
+			}
+		}
+		slug
+		category {
+			id
+			name
+		}
+	}
+`
+export const InfoCardFragmentDoc = gql`
+	fragment InfoCard on InfoCardRecord {
+		__typename
+		id
+		title
+		image
+		subcopy
+	}
+`
+export const CardStackFragmentDoc = gql`
+	fragment CardStack on CardStackRecord {
+		__typename
+		id
+		sectionTitle
+		variation
+		contentType
+		accordionTitle
+		itemsPage {
+			id
+			name
+			slug
+			thumbnailImage
+		}
+		itemsArticle {
+			...Article
+		}
+		itemsInfocard {
+			...InfoCard
+		}
+	}
+	${ArticleFragmentDoc}
+	${InfoCardFragmentDoc}
 `
 export const FormFragmentDoc = gql`
 	fragment Form on FormRecord {
@@ -3599,36 +3842,7 @@ export const PageFragmentFragmentDoc = gql`
 				...ArticleHero
 			}
 			... on CardStackRecord {
-				__typename
-				id
-				title
-				categories
-				items {
-					... on ArticleRecord {
-						__typename
-						id
-						category {
-							id
-							name
-						}
-						content {
-							blocks {
-								id
-								image
-							}
-							links
-							value
-						}
-						thumbnailImage
-					}
-					... on PageRecord {
-						__typename
-						id
-						name
-						slug
-						thumbnailImage
-					}
-				}
+				...CardStack
 			}
 			... on FormRecord {
 				...Form
@@ -3642,6 +3856,7 @@ export const PageFragmentFragmentDoc = gql`
 		}
 	}
 	${ArticleHeroFragmentDoc}
+	${CardStackFragmentDoc}
 	${FormFragmentDoc}
 	${HomeHeroFragmentDoc}
 	${InnerHeroFragmentDoc}

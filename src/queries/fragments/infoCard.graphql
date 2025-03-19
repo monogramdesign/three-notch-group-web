@@ -1,0 +1,7 @@
+fragment InfoCard on InfoCardRecord {
+	__typename
+	id
+	title
+	image
+	subcopy
+}

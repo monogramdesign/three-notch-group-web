@@ -1,0 +1,20 @@
+fragment CardStack on CardStackRecord {
+	__typename
+	id
+	sectionTitle
+	variation
+	contentType
+	accordionTitle
+	itemsPage {
+		id
+		name
+		slug
+		thumbnailImage
+	}
+	itemsArticle {
+		...Article
+	}
+	itemsInfocard {
+		...InfoCard
+	}
+}

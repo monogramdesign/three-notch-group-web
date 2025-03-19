@@ -1,0 +1,14 @@
+---
+import type { CardStackFragment } from '../../generated/graphql'
+import SimpleCardStack from './SimpleCardStack.astro'
+import AccordionCardStack from './AccordionCardStack.astro'
+import GridCardStack from './GridCardStack.astro'
+
+type Props = Readonly<CardStackFragment>
+
+const { variation } = Astro.props
+---
+
+{variation === 'simple' && <SimpleCardStack {...Astro.props} />}
+{variation === 'accordion' && <AccordionCardStack {...Astro.props} />}
+{variation === 'grid' && <GridCardStack {...Astro.props} />}

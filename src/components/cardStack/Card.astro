@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets'
+
+export interface Props {
+	title: string
+	imageUrl?: string
+	slug?: string
+	aspectRatio?: string
+}
+
+const { title, imageUrl, slug, aspectRatio = '4/3' } = Astro.props
+---
+
+<div class="card">
+	{
+		imageUrl && (
+			<div class={`aspect-[${aspectRatio}] mb-4 overflow-hidden`}>
+				<Image
+					src={imageUrl}
+					alt={title || ''}
+					class="w-full h-full object-cover"
+					width={400}
+					height={300}
+				/>
+			</div>
+		)
+	}
+	<h3 class="text-xl font-medium">
+		{
+			slug ? (
+				<a href={`/${slug}`} class="hover:underline">
+					{title}
+				</a>
+			) : (
+				title
+			)
+		}
+	</h3>
+</div>
+
