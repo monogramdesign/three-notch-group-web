@@ -3,10 +3,5 @@ fragment HomeHero on HomeHeroRecord {
 	id
 	title
 	description
-	backgroundImage {
-		id
-		responsiveImage {
-			src
-		}
-	}
+	backgroundImage
 }

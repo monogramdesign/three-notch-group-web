@@ -2,14 +2,16 @@
 import type {
 	HomeHeroFragment,
 	InnerHeroFragment,
-	ArticleHeroFragment
+	ArticleHeroFragment,
+	FormFragment
 } from '../../generated/graphql'
 import InnerHero from '../hero/InnerHero.astro'
 import HomeHero from '../hero/HomeHero.astro'
 import ArticleHero from '../hero/ArticleHero.astro'
+import Form from '../form/Form.astro'
 
 type Props = {
-	section: HomeHeroFragment | InnerHeroFragment | ArticleHeroFragment
+	section: HomeHeroFragment | InnerHeroFragment | ArticleHeroFragment | FormFragment
 }
 
 const { section } = Astro.props
@@ -26,5 +28,9 @@ const { section } = Astro.props
 
 	<case value="ArticleHeroRecord">
 		<ArticleHero {...section} />
+	</case>
+
+	<case value="FormRecord">
+		<Form {...section as FormFragment} />
 	</case>
 </switch>

@@ -9,9 +9,9 @@ const { title, description, backgroundImage } = Astro.props
 
 <section class="home-hero relative min-h-[80vh] flex items-center justify-center bg-gray-900">
 	{
-		backgroundImage?.responsiveImage?.src && (
+		backgroundImage && (
 			<Image
-				src={backgroundImage.responsiveImage.src}
+				src={backgroundImage[0].url}
 				alt={title || 'Hero background'}
 				width={1920}
 				height={1080}

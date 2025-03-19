@@ -1,0 +1,19 @@
+fragment Form on FormRecord {
+	__typename
+	id
+	title
+	variation
+	submitLink
+	items {
+		__typename
+		id
+		label
+		fieldType
+		formSelectItems {
+			__typename
+			id
+			label
+			value
+		}
+	}
+}

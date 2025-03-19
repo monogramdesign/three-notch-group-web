@@ -482,6 +482,7 @@ export type FormItemRecord = RecordInterface & {
 	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
 	_updatedAt: Scalars['DateTime']['output']
 	fieldType?: Maybe<Scalars['String']['output']>
+	formSelectItems: Array<FormSelectItemRecord>
 	id: Scalars['ItemId']['output']
 	label?: Maybe<Scalars['String']['output']>
 }
@@ -519,6 +520,32 @@ export type FormRecord_SeoMetaTagsArgs = {
 	locale?: InputMaybe<SiteLocale>
 }
 
+/** Block of type Form Select Item (form_select_item) */
+export type FormSelectItemRecord = RecordInterface & {
+	__typename?: 'FormSelectItemRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	label?: Maybe<Scalars['String']['output']>
+	value?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Form Select Item (form_select_item) */
+export type FormSelectItemRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
 export type GlobalSeoField = {
 	__typename?: 'GlobalSeoField'
 	facebookPageUrl?: Maybe<Scalars['String']['output']>
@@ -544,7 +571,7 @@ export type HomeHeroRecord = RecordInterface & {
 	_status: ItemStatus
 	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
 	_updatedAt: Scalars['DateTime']['output']
-	backgroundImage?: Maybe<FileField>
+	backgroundImage?: Maybe<Scalars['JsonField']['output']>
 	description?: Maybe<Scalars['String']['output']>
 	id: Scalars['ItemId']['output']
 	title?: Maybe<Scalars['String']['output']>
@@ -2376,7 +2403,7 @@ export type InnerHeroRecord = RecordInterface & {
 	_status: ItemStatus
 	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
 	_updatedAt: Scalars['DateTime']['output']
-	backgroundImage?: Maybe<FileField>
+	backgroundImage?: Maybe<Scalars['JsonField']['output']>
 	description?: Maybe<Scalars['String']['output']>
 	eyebrow?: Maybe<Scalars['String']['output']>
 	id: Scalars['ItemId']['output']
@@ -3231,16 +3258,32 @@ export type ArticleHeroFragment = {
 	} | null
 }
 
+export type FormFragment = {
+	__typename: 'FormRecord'
+	id: any
+	title?: string | null
+	variation?: string | null
+	submitLink?: string | null
+	items: Array<{
+		__typename: 'FormItemRecord'
+		id: any
+		label?: string | null
+		fieldType?: string | null
+		formSelectItems: Array<{
+			__typename: 'FormSelectItemRecord'
+			id: any
+			label?: string | null
+			value?: string | null
+		}>
+	}>
+}
+
 export type HomeHeroFragment = {
 	__typename: 'HomeHeroRecord'
 	id: any
 	title?: string | null
 	description?: string | null
-	backgroundImage?: {
-		__typename?: 'FileField'
-		id: any
-		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-	} | null
+	backgroundImage?: any | null
 }
 
 export type InnerHeroFragment = {
@@ -3250,11 +3293,7 @@ export type InnerHeroFragment = {
 	variation?: string | null
 	eyebrow?: string | null
 	description?: string | null
-	backgroundImage?: {
-		__typename?: 'FileField'
-		id: any
-		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-	} | null
+	backgroundImage?: any | null
 }
 
 export type PageFragmentFragment = {
@@ -3344,10 +3383,16 @@ export type PageFragmentFragment = {
 				variation?: string | null
 				submitLink?: string | null
 				items: Array<{
-					__typename?: 'FormItemRecord'
+					__typename: 'FormItemRecord'
 					id: any
 					label?: string | null
 					fieldType?: string | null
+					formSelectItems: Array<{
+						__typename: 'FormSelectItemRecord'
+						id: any
+						label?: string | null
+						value?: string | null
+					}>
 				}>
 		  }
 		| {
@@ -3355,11 +3400,7 @@ export type PageFragmentFragment = {
 				id: any
 				title?: string | null
 				description?: string | null
-				backgroundImage?: {
-					__typename?: 'FileField'
-					id: any
-					responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-				} | null
+				backgroundImage?: any | null
 		  }
 		| {
 				__typename: 'InnerHeroRecord'
@@ -3368,11 +3409,7 @@ export type PageFragmentFragment = {
 				variation?: string | null
 				eyebrow?: string | null
 				description?: string | null
-				backgroundImage?: {
-					__typename?: 'FileField'
-					id: any
-					responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-				} | null
+				backgroundImage?: any | null
 		  }
 	>
 }
@@ -3470,10 +3507,16 @@ export type PageQuery = {
 					variation?: string | null
 					submitLink?: string | null
 					items: Array<{
-						__typename?: 'FormItemRecord'
+						__typename: 'FormItemRecord'
 						id: any
 						label?: string | null
 						fieldType?: string | null
+						formSelectItems: Array<{
+							__typename: 'FormSelectItemRecord'
+							id: any
+							label?: string | null
+							value?: string | null
+						}>
 					}>
 			  }
 			| {
@@ -3481,11 +3524,7 @@ export type PageQuery = {
 					id: any
 					title?: string | null
 					description?: string | null
-					backgroundImage?: {
-						__typename?: 'FileField'
-						id: any
-						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-					} | null
+					backgroundImage?: any | null
 			  }
 			| {
 					__typename: 'InnerHeroRecord'
@@ -3494,11 +3533,7 @@ export type PageQuery = {
 					variation?: string | null
 					eyebrow?: string | null
 					description?: string | null
-					backgroundImage?: {
-						__typename?: 'FileField'
-						id: any
-						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-					} | null
+					backgroundImage?: any | null
 			  }
 		>
 	} | null
@@ -3595,10 +3630,16 @@ export type HomePageQuery = {
 					variation?: string | null
 					submitLink?: string | null
 					items: Array<{
-						__typename?: 'FormItemRecord'
+						__typename: 'FormItemRecord'
 						id: any
 						label?: string | null
 						fieldType?: string | null
+						formSelectItems: Array<{
+							__typename: 'FormSelectItemRecord'
+							id: any
+							label?: string | null
+							value?: string | null
+						}>
 					}>
 			  }
 			| {
@@ -3606,11 +3647,7 @@ export type HomePageQuery = {
 					id: any
 					title?: string | null
 					description?: string | null
-					backgroundImage?: {
-						__typename?: 'FileField'
-						id: any
-						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-					} | null
+					backgroundImage?: any | null
 			  }
 			| {
 					__typename: 'InnerHeroRecord'
@@ -3619,11 +3656,7 @@ export type HomePageQuery = {
 					variation?: string | null
 					eyebrow?: string | null
 					description?: string | null
-					backgroundImage?: {
-						__typename?: 'FileField'
-						id: any
-						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
-					} | null
+					backgroundImage?: any | null
 			  }
 		>
 	} | null
@@ -3644,18 +3677,34 @@ export const ArticleHeroFragmentDoc = gql`
 		date
 	}
 `
+export const FormFragmentDoc = gql`
+	fragment Form on FormRecord {
+		__typename
+		id
+		title
+		variation
+		submitLink
+		items {
+			__typename
+			id
+			label
+			fieldType
+			formSelectItems {
+				__typename
+				id
+				label
+				value
+			}
+		}
+	}
+`
 export const HomeHeroFragmentDoc = gql`
 	fragment HomeHero on HomeHeroRecord {
 		__typename
 		id
 		title
 		description
-		backgroundImage {
-			id
-			responsiveImage {
-				src
-			}
-		}
+		backgroundImage
 	}
 `
 export const InnerHeroFragmentDoc = gql`
@@ -3666,12 +3715,7 @@ export const InnerHeroFragmentDoc = gql`
 		variation
 		eyebrow
 		description
-		backgroundImage {
-			id
-			responsiveImage {
-				src
-			}
-		}
+		backgroundImage
 	}
 `
 export const PageFragmentFragmentDoc = gql`
@@ -3740,16 +3784,7 @@ export const PageFragmentFragmentDoc = gql`
 				}
 			}
 			... on FormRecord {
-				__typename
-				id
-				title
-				variation
-				submitLink
-				items {
-					id
-					label
-					fieldType
-				}
+				...Form
 			}
 			... on HomeHeroRecord {
 				...HomeHero
@@ -3760,6 +3795,7 @@ export const PageFragmentFragmentDoc = gql`
 		}
 	}
 	${ArticleHeroFragmentDoc}
+	${FormFragmentDoc}
 	${HomeHeroFragmentDoc}
 	${InnerHeroFragmentDoc}
 `

@@ -5,10 +5,5 @@ fragment InnerHero on InnerHeroRecord {
 	variation
 	eyebrow
 	description
-	backgroundImage {
-		id
-		responsiveImage {
-			src
-		}
-	}
+	backgroundImage
 }

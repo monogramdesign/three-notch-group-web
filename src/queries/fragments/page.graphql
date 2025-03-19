@@ -63,16 +63,7 @@ fragment PageFragment on PageRecord {
 			}
 		}
 		... on FormRecord {
-			__typename
-			id
-			title
-			variation
-			submitLink
-			items {
-				id
-				label
-				fieldType
-			}
+			...Form
 		}
 		... on HomeHeroRecord {
 			...HomeHero

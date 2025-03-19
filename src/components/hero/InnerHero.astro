@@ -19,7 +19,7 @@ const { title, description, backgroundImage, variation, eyebrow } = Astro.props
 				{description}
 			</p>
 			<p class="text-lg md:text-xl max-w-2xl mx-auto">
-				{backgroundImage?.responsiveImage?.src}
+				{backgroundImage[0].url}
 			</p>
 			<p class="text-lg md:text-xl max-w-2xl mx-auto">
 				{variation}

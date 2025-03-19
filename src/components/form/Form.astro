@@ -1,0 +1,21 @@
+---
+import type { FormFragment } from '../../generated/graphql'
+
+type Props = Readonly<FormFragment>
+
+const { title, variation, submitLink, items } = Astro.props
+---
+
+<div>
+	<h2>{title}</h2>
+	<form action={submitLink} method="POST">
+		{
+			items?.map((item) => (
+				<div>
+					<label for={item.id}>{item.label}</label>
+				</div>
+			))
+		}
+		<button type="submit">{variation}</button>
+	</form>
+</div>
