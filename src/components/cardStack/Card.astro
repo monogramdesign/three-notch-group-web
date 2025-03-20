@@ -25,7 +25,7 @@ const { title, imageUrl, slug, aspectRatio = '4/3' } = Astro.props
 			</div>
 		)
 	}
-	<h3 class="text-xl font-medium">
+	<h3 class="text-xl font-medium text-black">
 		{
 			slug ? (
 				<a href={`/${slug}`} class="hover:underline">
@@ -37,4 +37,3 @@ const { title, imageUrl, slug, aspectRatio = '4/3' } = Astro.props
 		}
 	</h3>
 </div>
-

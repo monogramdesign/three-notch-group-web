@@ -16,7 +16,7 @@ export function extractCardData(item: any, contentType: string): CardData {
 	} else if (contentType === 'articles' && 'title' in item) {
 		title = item.title || ''
 		imageUrl = item.thumbnailImage?.[0]?.url || ''
-		slug = 'slug' in item ? item.slug || '' : ''
+		slug = 'slug' in item ? `blog/${item.slug}` || '' : ''
 	} else if ('title' in item && 'image' in item) {
 		// InfoCard
 		title = item.title || ''

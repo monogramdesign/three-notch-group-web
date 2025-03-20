@@ -186,7 +186,8 @@ export type CategoryModelFilter = {
 	_unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>
 	_updatedAt?: InputMaybe<UpdatedAtFilter>
 	id?: InputMaybe<ItemIdFilter>
-	name?: InputMaybe<StringFilter>
+	label?: InputMaybe<StringFilter>
+	value?: InputMaybe<StringFilter>
 }
 
 export enum CategoryModelOrderBy {
@@ -208,8 +209,10 @@ export enum CategoryModelOrderBy {
 	UpdatedAtDesc = '_updatedAt_DESC',
 	IdAsc = 'id_ASC',
 	IdDesc = 'id_DESC',
-	NameAsc = 'name_ASC',
-	NameDesc = 'name_DESC'
+	LabelAsc = 'label_ASC',
+	LabelDesc = 'label_DESC',
+	ValueAsc = 'value_ASC',
+	ValueDesc = 'value_DESC'
 }
 
 /** Record of type Category (category) */
@@ -229,7 +232,8 @@ export type CategoryRecord = RecordInterface & {
 	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
 	_updatedAt: Scalars['DateTime']['output']
 	id: Scalars['ItemId']['output']
-	name?: Maybe<Scalars['String']['output']>
+	label?: Maybe<Scalars['String']['output']>
+	value?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Category (category) */
@@ -3356,7 +3360,12 @@ export type ArticleFragment = {
 		value: any
 		blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
 	} | null
-	category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+	category?: {
+		__typename?: 'CategoryRecord'
+		id: any
+		label?: string | null
+		value?: string | null
+	} | null
 }
 
 export type ArticleHeroFragment = {
@@ -3393,7 +3402,12 @@ export type CardStackFragment = {
 			value: any
 			blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
 		} | null
-		category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+		category?: {
+			__typename?: 'CategoryRecord'
+			id: any
+			label?: string | null
+			value?: string | null
+		} | null
 	}>
 	itemsInfocard: Array<{
 		__typename: 'InfoCardRecord'
@@ -3490,7 +3504,12 @@ export type PageFragmentFragment = {
 						value: any
 						blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
 					} | null
-					category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+					category?: {
+						__typename?: 'CategoryRecord'
+						id: any
+						label?: string | null
+						value?: string | null
+					} | null
 				}>
 				itemsInfocard: Array<{
 					__typename: 'InfoCardRecord'
@@ -3584,7 +3603,12 @@ export type PageQuery = {
 							value: any
 							blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
 						} | null
-						category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+						category?: {
+							__typename?: 'CategoryRecord'
+							id: any
+							label?: string | null
+							value?: string | null
+						} | null
 					}>
 					itemsInfocard: Array<{
 						__typename: 'InfoCardRecord'
@@ -3677,7 +3701,12 @@ export type HomePageQuery = {
 							value: any
 							blocks: Array<{ __typename: 'EmbedImageRecord'; id: any; image?: any | null }>
 						} | null
-						category?: { __typename?: 'CategoryRecord'; id: any; name?: string | null } | null
+						category?: {
+							__typename?: 'CategoryRecord'
+							id: any
+							label?: string | null
+							value?: string | null
+						} | null
 					}>
 					itemsInfocard: Array<{
 						__typename: 'InfoCardRecord'
@@ -3753,7 +3782,8 @@ export const ArticleFragmentDoc = gql`
 		slug
 		category {
 			id
-			name
+			label
+			value
 		}
 	}
 `
