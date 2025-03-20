@@ -2620,6 +2620,7 @@ export type PageModelSectionsField =
 	| HomeHeroRecord
 	| InnerHeroRecord
 	| MediaBlockRecord
+	| TextBlockRecord
 
 /** Record of type Page (page) */
 export type PageRecord = RecordInterface & {
@@ -2987,6 +2988,37 @@ export type Tag = {
 	attributes?: Maybe<Scalars['MetaTagAttributes']['output']>
 	content?: Maybe<Scalars['String']['output']>
 	tag: Scalars['String']['output']
+}
+
+/** Block of type Text Block (text_block) */
+export type TextBlockRecord = RecordInterface & {
+	__typename?: 'TextBlockRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	text?: Maybe<Scalars['String']['output']>
+	variation?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Text Block (text_block) */
+export type TextBlockRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** Block of type Text Block (text_block) */
+export type TextBlockRecordTextArgs = {
+	markdown?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 /** Specifies how to filter by upload type */
@@ -3634,7 +3666,15 @@ export type PageFragmentFragment = {
 					video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
 				} | null
 		  }
+		| { __typename: 'TextBlockRecord'; id: any; text?: string | null; variation?: string | null }
 	>
+}
+
+export type TextBlockFragment = {
+	__typename: 'TextBlockRecord'
+	id: any
+	text?: string | null
+	variation?: string | null
 }
 
 export type PageQueryVariables = Exact<{
@@ -3746,6 +3786,7 @@ export type PageQuery = {
 						video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
 					} | null
 			  }
+			| { __typename: 'TextBlockRecord'; id: any; text?: string | null; variation?: string | null }
 		>
 	} | null
 }
@@ -3857,6 +3898,7 @@ export type HomePageQuery = {
 						video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
 					} | null
 			  }
+			| { __typename: 'TextBlockRecord'; id: any; text?: string | null; variation?: string | null }
 		>
 	} | null
 }
@@ -3993,6 +4035,14 @@ export const MediaBlockFragmentDoc = gql`
 		variation
 	}
 `
+export const TextBlockFragmentDoc = gql`
+	fragment TextBlock on TextBlockRecord {
+		__typename
+		id
+		text
+		variation
+	}
+`
 export const PageFragmentFragmentDoc = gql`
 	fragment PageFragment on PageRecord {
 		id
@@ -4018,6 +4068,9 @@ export const PageFragmentFragmentDoc = gql`
 			... on MediaBlockRecord {
 				...MediaBlock
 			}
+			... on TextBlockRecord {
+				...TextBlock
+			}
 		}
 	}
 	${ArticleHeroFragmentDoc}
@@ -4026,6 +4079,7 @@ export const PageFragmentFragmentDoc = gql`
 	${HomeHeroFragmentDoc}
 	${InnerHeroFragmentDoc}
 	${MediaBlockFragmentDoc}
+	${TextBlockFragmentDoc}
 `
 export const AllCategoriesDocument = gql`
 	query AllCategories {

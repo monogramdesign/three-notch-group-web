@@ -22,5 +22,8 @@ fragment PageFragment on PageRecord {
 		... on MediaBlockRecord {
 			...MediaBlock
 		}
+		... on TextBlockRecord {
+			...TextBlock
+		}
 	}
 }

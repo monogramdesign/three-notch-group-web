@@ -1,0 +1,6 @@
+fragment TextBlock on TextBlockRecord {
+	__typename
+	id
+	text
+	variation
+}

@@ -1,0 +1,28 @@
+---
+import type { TextBlockFragment } from '../../generated/graphql'
+
+type Props = Readonly<TextBlockFragment>
+
+const { text, variation } = Astro.props
+---
+
+<section>
+	{
+		variation === 'black' && (
+			<div class="w-full bg-black">
+				<div class="container mx-auto px-4 py-48">
+					<div class="text-white text-left text-6xl">{text}</div>
+				</div>
+			</div>
+		)
+	}
+	{
+		variation === 'white' && (
+			<div class="w-full bg-white">
+				<div class="container mx-auto px-4 py-48">
+					<div class="text-black text-left text-6xl">{text}</div>
+				</div>
+			</div>
+		)
+	}
+</section>
