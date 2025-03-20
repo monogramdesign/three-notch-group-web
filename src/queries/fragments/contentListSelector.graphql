@@ -1,0 +1,13 @@
+fragment ContentListSelector on ContentListSelectorRecord {
+	__typename
+	id
+	title
+	description
+	image
+	items {
+		id
+		name
+		slug
+	}
+	variation
+}

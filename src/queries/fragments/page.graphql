@@ -25,5 +25,8 @@ fragment PageFragment on PageRecord {
 		... on TextBlockRecord {
 			...TextBlock
 		}
+		... on ContentListSelectorRecord {
+			...ContentListSelector
+		}
 	}
 }

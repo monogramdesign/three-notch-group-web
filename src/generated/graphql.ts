@@ -271,6 +271,40 @@ export type ColorField = {
 	red: Scalars['IntType']['output']
 }
 
+/** Block of type Content List Selector (content_list_selector) */
+export type ContentListSelectorRecord = RecordInterface & {
+	__typename?: 'ContentListSelectorRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	description?: Maybe<Scalars['String']['output']>
+	id: Scalars['ItemId']['output']
+	image?: Maybe<Scalars['JsonField']['output']>
+	items: Array<PageRecord>
+	title?: Maybe<Scalars['String']['output']>
+	variation?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Content List Selector (content_list_selector) */
+export type ContentListSelectorRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** Block of type Content List Selector (content_list_selector) */
+export type ContentListSelectorRecordDescriptionArgs = {
+	markdown?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 /** Specifies how to filter by creation datetime */
 export type CreatedAtFilter = {
 	/** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
@@ -2616,6 +2650,7 @@ export enum PageModelOrderBy {
 export type PageModelSectionsField =
 	| ArticleHeroRecord
 	| CardStackRecord
+	| ContentListSelectorRecord
 	| FormRecord
 	| HomeHeroRecord
 	| InnerHeroRecord
@@ -3503,6 +3538,16 @@ export type CategoryFragment = {
 	value?: string | null
 }
 
+export type ContentListSelectorFragment = {
+	__typename: 'ContentListSelectorRecord'
+	id: any
+	title?: string | null
+	description?: string | null
+	image?: any | null
+	variation?: string | null
+	items: Array<{ __typename?: 'PageRecord'; id: any; name?: string | null; slug?: string | null }>
+}
+
 export type FormFragment = {
 	__typename: 'FormRecord'
 	id: any
@@ -3616,6 +3661,20 @@ export type PageFragmentFragment = {
 					title?: string | null
 					image?: any | null
 					subcopy?: string | null
+				}>
+		  }
+		| {
+				__typename: 'ContentListSelectorRecord'
+				id: any
+				title?: string | null
+				description?: string | null
+				image?: any | null
+				variation?: string | null
+				items: Array<{
+					__typename?: 'PageRecord'
+					id: any
+					name?: string | null
+					slug?: string | null
 				}>
 		  }
 		| {
@@ -3739,6 +3798,20 @@ export type PageQuery = {
 					}>
 			  }
 			| {
+					__typename: 'ContentListSelectorRecord'
+					id: any
+					title?: string | null
+					description?: string | null
+					image?: any | null
+					variation?: string | null
+					items: Array<{
+						__typename?: 'PageRecord'
+						id: any
+						name?: string | null
+						slug?: string | null
+					}>
+			  }
+			| {
 					__typename: 'FormRecord'
 					id: any
 					title?: string | null
@@ -3848,6 +3921,20 @@ export type HomePageQuery = {
 						title?: string | null
 						image?: any | null
 						subcopy?: string | null
+					}>
+			  }
+			| {
+					__typename: 'ContentListSelectorRecord'
+					id: any
+					title?: string | null
+					description?: string | null
+					image?: any | null
+					variation?: string | null
+					items: Array<{
+						__typename?: 'PageRecord'
+						id: any
+						name?: string | null
+						slug?: string | null
 					}>
 			  }
 			| {
@@ -4043,6 +4130,21 @@ export const TextBlockFragmentDoc = gql`
 		variation
 	}
 `
+export const ContentListSelectorFragmentDoc = gql`
+	fragment ContentListSelector on ContentListSelectorRecord {
+		__typename
+		id
+		title
+		description
+		image
+		items {
+			id
+			name
+			slug
+		}
+		variation
+	}
+`
 export const PageFragmentFragmentDoc = gql`
 	fragment PageFragment on PageRecord {
 		id
@@ -4071,6 +4173,9 @@ export const PageFragmentFragmentDoc = gql`
 			... on TextBlockRecord {
 				...TextBlock
 			}
+			... on ContentListSelectorRecord {
+				...ContentListSelector
+			}
 		}
 	}
 	${ArticleHeroFragmentDoc}
@@ -4080,6 +4185,7 @@ export const PageFragmentFragmentDoc = gql`
 	${InnerHeroFragmentDoc}
 	${MediaBlockFragmentDoc}
 	${TextBlockFragmentDoc}
+	${ContentListSelectorFragmentDoc}
 `
 export const AllCategoriesDocument = gql`
 	query AllCategories {

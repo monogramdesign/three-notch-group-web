@@ -6,7 +6,8 @@ import type {
 	FormFragment,
 	CardStackFragment,
 	MediaBlockFragment,
-	TextBlockFragment
+	TextBlockFragment,
+	ContentListSelectorFragment
 } from '../../generated/graphql'
 import InnerHero from '../hero/InnerHero.astro'
 import HomeHero from '../hero/HomeHero.astro'
@@ -15,6 +16,7 @@ import Form from '../form/Form.astro'
 import CardStack from '../cardStack/CardStack.astro'
 import MediaBlock from '../mediaBlock/MediaBlock.astro'
 import TextBlock from '../textBlock/TextBlock.astro'
+import ContentListSelector from '../contentListSelector/ContentListSelector.astro'
 type Props = {
 	section:
 		| HomeHeroFragment
@@ -24,6 +26,7 @@ type Props = {
 		| CardStackFragment
 		| MediaBlockFragment
 		| TextBlockFragment
+		| ContentListSelectorFragment
 }
 
 const { section } = Astro.props
@@ -36,3 +39,8 @@ const { section } = Astro.props
 {section.__typename === 'CardStackRecord' && <CardStack {...(section as CardStackFragment)} />}
 {section.__typename === 'MediaBlockRecord' && <MediaBlock {...(section as MediaBlockFragment)} />}
 {section.__typename === 'TextBlockRecord' && <TextBlock {...(section as TextBlockFragment)} />}
+{
+	section.__typename === 'ContentListSelectorRecord' && (
+		<ContentListSelector {...(section as ContentListSelectorFragment)} />
+	)
+}
