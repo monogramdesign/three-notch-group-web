@@ -10,13 +10,47 @@ const { sectionTitle, contentType, itemsPage, itemsArticle, itemsInfocard, accor
 
 const items =
 	contentType === 'pages' ? itemsPage : contentType === 'articles' ? itemsArticle : itemsInfocard
+
+// Client-side JavaScript for accordion behavior
+const accordionScript = `
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordionTitleElement = document.querySelector('.accordion-title');
+    const accordionContent = document.querySelector('.accordion-content');
+    const accordionIcon = document.querySelector('.accordion-icon');
+    
+    if (accordionTitleElement && accordionContent) {
+      // Initialize - hide content by default
+      accordionContent.classList.add('hidden');
+      
+      accordionTitleElement.addEventListener('click', () => {
+        // Toggle content visibility
+        accordionContent.classList.toggle('hidden');
+        
+        // Toggle icon rotation
+        if (accordionIcon) {
+          accordionIcon.classList.toggle('rotate-180');
+        }
+      });
+    }
+  });
+`
 ---
 
 <section class="simple-card-stack py-8 bg-[#DBE1DE]">
 	{sectionTitle && <h2 class="font-bold text-2xl mb-6 text-black">{sectionTitle}</h2>}
-	{accordionTitle && <h3 class="font-bold text-xl mb-6 text-black">{accordionTitle}</h3>}
 
-	<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+	{
+		accordionTitle && (
+			<div class="mb-6">
+				<button class="accordion-title flex justify-between items-center w-full text-left font-bold text-xl text-black bg-white p-4 rounded">
+					<span>{accordionTitle}</span>
+					<span class="accordion-icon transform transition-transform duration-300">▼</span>
+				</button>
+			</div>
+		)
+	}
+
+	<div class="accordion-content grid grid-cols-1 md:grid-cols-3 gap-6">
 		{
 			items?.map((item) => {
 				const { title, imageUrl, slug } = extractCardData(item, contentType || '')
@@ -32,3 +66,20 @@ const items =
 		<span class="text-xl">→</span>
 	</div>
 </section>
+
+<style>
+	.hidden {
+		display: none;
+	}
+
+	.accordion-title {
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.accordion-title:hover {
+		background-color: #f0f0f0;
+	}
+</style>
+
+<script set:html={accordionScript} />
