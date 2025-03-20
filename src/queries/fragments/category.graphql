@@ -1,0 +1,6 @@
+fragment Category on CategoryRecord {
+	__typename
+	id
+	label
+	value
+}

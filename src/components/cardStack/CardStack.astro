@@ -3,12 +3,14 @@ import type { CardStackFragment } from '../../generated/graphql'
 import SimpleCardStack from './SimpleCardStack.astro'
 import AccordionCardStack from './AccordionCardStack.astro'
 import GridCardStack from './GridCardStack.astro'
-
+import { getAllCategories } from '../../services/categoryService'
 type Props = Readonly<CardStackFragment>
 
 const { variation } = Astro.props
+
+const categories = await getAllCategories()
 ---
 
 {variation === 'simple' && <SimpleCardStack {...Astro.props} />}
 {variation === 'accordion' && <AccordionCardStack {...Astro.props} />}
-{variation === 'grid' && <GridCardStack {...Astro.props} />}
+{variation === 'grid' && <GridCardStack {...Astro.props} categories={categories} />}

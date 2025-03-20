@@ -3349,6 +3349,18 @@ export type FocalPoint = {
 	y: Scalars['FloatType']['output']
 }
 
+export type AllCategoriesQueryVariables = Exact<{ [key: string]: never }>
+
+export type AllCategoriesQuery = {
+	__typename?: 'Query'
+	allCategories: Array<{
+		__typename: 'CategoryRecord'
+		id: any
+		label?: string | null
+		value?: string | null
+	}>
+}
+
 export type ArticleFragment = {
 	__typename: 'ArticleRecord'
 	id: any
@@ -3416,6 +3428,13 @@ export type CardStackFragment = {
 		image?: any | null
 		subcopy?: string | null
 	}>
+}
+
+export type CategoryFragment = {
+	__typename: 'CategoryRecord'
+	id: any
+	label?: string | null
+	value?: string | null
 }
 
 export type FormFragment = {
@@ -3755,6 +3774,14 @@ export type HomePageQuery = {
 	} | null
 }
 
+export const CategoryFragmentDoc = gql`
+	fragment Category on CategoryRecord {
+		__typename
+		id
+		label
+		value
+	}
+`
 export const ArticleHeroFragmentDoc = gql`
 	fragment ArticleHero on ArticleHeroRecord {
 		__typename
@@ -3891,6 +3918,14 @@ export const PageFragmentFragmentDoc = gql`
 	${HomeHeroFragmentDoc}
 	${InnerHeroFragmentDoc}
 `
+export const AllCategoriesDocument = gql`
+	query AllCategories {
+		allCategories {
+			...Category
+		}
+	}
+	${CategoryFragmentDoc}
+`
 export const PageDocument = gql`
 	query Page($slug: String) {
 		page(filter: { slug: { eq: $slug } }) {
@@ -3920,6 +3955,21 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
 	return {
+		AllCategories(
+			variables?: AllCategoriesQueryVariables,
+			requestHeaders?: GraphQLClientRequestHeaders
+		): Promise<AllCategoriesQuery> {
+			return withWrapper(
+				(wrappedRequestHeaders) =>
+					client.request<AllCategoriesQuery>(AllCategoriesDocument, variables, {
+						...requestHeaders,
+						...wrappedRequestHeaders
+					}),
+				'AllCategories',
+				'query',
+				variables
+			)
+		},
 		Page(
 			variables?: PageQueryVariables,
 			requestHeaders?: GraphQLClientRequestHeaders

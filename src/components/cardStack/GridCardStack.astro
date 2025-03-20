@@ -1,0 +1,106 @@
+---
+import type { CardStackFragment, AllCategoriesQuery } from '../../generated/graphql'
+import Card from './Card.astro'
+import { extractCardData } from './utils'
+
+type Props = Readonly<CardStackFragment> & { categories: AllCategoriesQuery }
+
+const { sectionTitle, contentType, itemsPage, itemsArticle, itemsInfocard, categories } =
+	Astro.props
+
+const items =
+	contentType === 'pages' ? itemsPage : contentType === 'articles' ? itemsArticle : itemsInfocard
+
+// Client-side JavaScript for category filtering
+const filterScript = `
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryButtons = document.querySelectorAll('.category-filter');
+    const cards = document.querySelectorAll('.card-item');
+    let activeCategory = '';
+
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const categoryValue = button.getAttribute('data-category');
+        
+        // Toggle active state
+        if (activeCategory === categoryValue) {
+          activeCategory = '';
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+        } else {
+          activeCategory = categoryValue;
+          categoryButtons.forEach(btn => {
+            if (btn.getAttribute('data-category') === categoryValue) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+        }
+        
+        // Filter cards
+        cards.forEach(card => {
+          if (!activeCategory || card.getAttribute('data-categories').includes(activeCategory)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+`
+---
+
+<section class="simple-card-stack py-8 bg-[#DBE1DE]">
+	{sectionTitle && <h2 class="font-bold text-2xl mb-6 text-black">{sectionTitle}</h2>}
+
+	{
+		contentType === 'articles' && (
+			<div class="flex flex-wrap gap-2 mb-6">
+				{categories.allCategories.map((category) => (
+					<button
+						class="category-filter px-4 py-2 bg-white text-black rounded-full text-sm hover:bg-gray-100 hover:text-black transition-colors"
+						data-category={category.value}
+					>
+						{category.label}
+					</button>
+				))}
+			</div>
+		)
+	}
+
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+		{
+			items?.map((item) => {
+				const { title, imageUrl, slug } = extractCardData(item, contentType || '')
+				// Handle different item types for categories
+				const itemCategories =
+					contentType === 'articles' && 'category' in item && item.category
+						? item.category.value
+						: ''
+
+				return (
+					<div class="card-item" data-categories={itemCategories}>
+						<Card title={title} imageUrl={imageUrl} slug={slug} />
+					</div>
+				)
+			})
+		}
+	</div>
+
+	{/* Bottom Text Placeholder with Arrow */}
+	<!-- @israel pending of CTA implementation -->
+	<div class="w-36 mt-16 bg-black text-white p-4 flex justify-between items-center">
+		<span>Text Placeholder</span>
+		<span class="text-xl">→</span>
+	</div>
+</section>
+
+<style>
+	.category-filter.active {
+		background-color: #000;
+		color: white;
+	}
+</style>
+
+<script set:html={filterScript} />
