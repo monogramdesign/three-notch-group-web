@@ -2526,6 +2526,39 @@ export type LinkFilter = {
 	notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>
 }
 
+/** Block of type Media Block (media_block) */
+export type MediaBlockRecord = RecordInterface & {
+	__typename?: 'MediaBlockRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	media?: Maybe<FileField>
+	subtitle?: Maybe<Scalars['String']['output']>
+	title?: Maybe<Scalars['String']['output']>
+	variation?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Media Block (media_block) */
+export type MediaBlockRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
+/** Block of type Media Block (media_block) */
+export type MediaBlockRecordSubtitleArgs = {
+	markdown?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export enum MuxThumbnailFormatType {
 	Gif = 'gif',
 	Jpg = 'jpg',
@@ -2586,6 +2619,7 @@ export type PageModelSectionsField =
 	| FormRecord
 	| HomeHeroRecord
 	| InnerHeroRecord
+	| MediaBlockRecord
 
 /** Record of type Page (page) */
 export type PageRecord = RecordInterface & {
@@ -3483,6 +3517,20 @@ export type InnerHeroFragment = {
 	backgroundImage?: any | null
 }
 
+export type MediaBlockFragment = {
+	__typename: 'MediaBlockRecord'
+	id: any
+	title?: string | null
+	subtitle?: string | null
+	variation?: string | null
+	media?: {
+		__typename?: 'FileField'
+		id: any
+		responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+		video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
+	} | null
+}
+
 export type PageFragmentFragment = {
 	__typename?: 'PageRecord'
 	id: any
@@ -3572,6 +3620,19 @@ export type PageFragmentFragment = {
 				eyebrow?: string | null
 				description?: string | null
 				backgroundImage?: any | null
+		  }
+		| {
+				__typename: 'MediaBlockRecord'
+				id: any
+				title?: string | null
+				subtitle?: string | null
+				variation?: string | null
+				media?: {
+					__typename?: 'FileField'
+					id: any
+					responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+					video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
+				} | null
 		  }
 	>
 }
@@ -3672,6 +3733,19 @@ export type PageQuery = {
 					description?: string | null
 					backgroundImage?: any | null
 			  }
+			| {
+					__typename: 'MediaBlockRecord'
+					id: any
+					title?: string | null
+					subtitle?: string | null
+					variation?: string | null
+					media?: {
+						__typename?: 'FileField'
+						id: any
+						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+						video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
+					} | null
+			  }
 		>
 	} | null
 }
@@ -3769,6 +3843,19 @@ export type HomePageQuery = {
 					eyebrow?: string | null
 					description?: string | null
 					backgroundImage?: any | null
+			  }
+			| {
+					__typename: 'MediaBlockRecord'
+					id: any
+					title?: string | null
+					subtitle?: string | null
+					variation?: string | null
+					media?: {
+						__typename?: 'FileField'
+						id: any
+						responsiveImage?: { __typename?: 'ResponsiveImage'; src: string } | null
+						video?: { __typename?: 'UploadVideoField'; mp4Url?: string | null } | null
+					} | null
 			  }
 		>
 	} | null
@@ -3888,6 +3975,24 @@ export const InnerHeroFragmentDoc = gql`
 		backgroundImage
 	}
 `
+export const MediaBlockFragmentDoc = gql`
+	fragment MediaBlock on MediaBlockRecord {
+		__typename
+		id
+		title
+		subtitle
+		media {
+			id
+			responsiveImage {
+				src
+			}
+			video {
+				mp4Url
+			}
+		}
+		variation
+	}
+`
 export const PageFragmentFragmentDoc = gql`
 	fragment PageFragment on PageRecord {
 		id
@@ -3910,6 +4015,9 @@ export const PageFragmentFragmentDoc = gql`
 			... on InnerHeroRecord {
 				...InnerHero
 			}
+			... on MediaBlockRecord {
+				...MediaBlock
+			}
 		}
 	}
 	${ArticleHeroFragmentDoc}
@@ -3917,6 +4025,7 @@ export const PageFragmentFragmentDoc = gql`
 	${FormFragmentDoc}
 	${HomeHeroFragmentDoc}
 	${InnerHeroFragmentDoc}
+	${MediaBlockFragmentDoc}
 `
 export const AllCategoriesDocument = gql`
 	query AllCategories {

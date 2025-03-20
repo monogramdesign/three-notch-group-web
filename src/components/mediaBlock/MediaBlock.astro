@@ -1,0 +1,67 @@
+---
+import type { MediaBlockFragment } from '../../generated/graphql'
+import { Image } from 'astro:assets'
+
+type Props = Readonly<MediaBlockFragment>
+
+const { title, subtitle, media, variation } = Astro.props
+---
+
+<section class="home-hero relative min-h-[80vh] flex items-center justify-center bg-gray-900">
+	{
+		media && media.responsiveImage && (
+			<Image
+				src={media.responsiveImage.src}
+				alt={title || 'Media background'}
+				width={1920}
+				height={1080}
+				class="absolute inset-0 w-full h-full object-cover opacity-75"
+				priority
+				quality="max"
+			/>
+		)
+	}
+	{
+		media && media.video && (
+			<video
+				src={media.video.mp4Url}
+				class="absolute inset-0 w-full h-full object-cover opacity-75"
+				autoplay
+				muted
+				loop
+			/>
+		)
+	}
+	{
+		variation === 'top_left' && (
+			<div class="relative z-10 w-1/2 px-8 pt-12 text-left text-white">
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{title}</h1>
+				<p class="text-lg md:text-xl max-w-2xl">{subtitle}</p>
+			</div>
+		)
+	}
+	{
+		variation === 'top_right' && (
+			<div class="relative z-10 w-1/2 px-8 pt-12 ml-auto text-right text-white">
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{title}</h1>
+				<p class="text-lg md:text-xl max-w-2xl ml-auto">{subtitle}</p>
+			</div>
+		)
+	}
+	{
+		variation === 'center' && (
+			<div class="relative z-10 w-1/2 px-8 mx-auto text-center text-white">
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{title}</h1>
+				<p class="text-lg md:text-xl max-w-2xl mx-auto">{subtitle}</p>
+			</div>
+		)
+	}
+	{
+		variation === 'bottom_left' && (
+			<div class="relative z-10 w-1/2 px-8 pb-12 text-left text-white">
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{title}</h1>
+				<p class="text-lg md:text-xl max-w-2xl">{subtitle}</p>
+			</div>
+		)
+	}
+</section>

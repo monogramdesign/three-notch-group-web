@@ -19,5 +19,8 @@ fragment PageFragment on PageRecord {
 		... on InnerHeroRecord {
 			...InnerHero
 		}
+		... on MediaBlockRecord {
+			...MediaBlock
+		}
 	}
 }

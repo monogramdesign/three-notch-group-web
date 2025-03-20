@@ -1,0 +1,16 @@
+fragment MediaBlock on MediaBlockRecord {
+	__typename
+	id
+	title
+	subtitle
+	media {
+		id
+		responsiveImage {
+			src
+		}
+		video {
+			mp4Url
+		}
+	}
+	variation
+}
