@@ -3545,7 +3545,7 @@ export type ContentListSelectorFragment = {
 	description?: string | null
 	image?: any | null
 	variation?: string | null
-	items: Array<{ __typename?: 'PageRecord'; id: any; name?: string | null; slug?: string | null }>
+	items: Array<{ __typename: 'PageRecord'; id: any; name?: string | null; slug?: string | null }>
 }
 
 export type FormFragment = {
@@ -3671,7 +3671,7 @@ export type PageFragmentFragment = {
 				image?: any | null
 				variation?: string | null
 				items: Array<{
-					__typename?: 'PageRecord'
+					__typename: 'PageRecord'
 					id: any
 					name?: string | null
 					slug?: string | null
@@ -3805,7 +3805,7 @@ export type PageQuery = {
 					image?: any | null
 					variation?: string | null
 					items: Array<{
-						__typename?: 'PageRecord'
+						__typename: 'PageRecord'
 						id: any
 						name?: string | null
 						slug?: string | null
@@ -3931,7 +3931,7 @@ export type HomePageQuery = {
 					image?: any | null
 					variation?: string | null
 					items: Array<{
-						__typename?: 'PageRecord'
+						__typename: 'PageRecord'
 						id: any
 						name?: string | null
 						slug?: string | null
@@ -4138,6 +4138,7 @@ export const ContentListSelectorFragmentDoc = gql`
 		description
 		image
 		items {
+			__typename
 			id
 			name
 			slug
