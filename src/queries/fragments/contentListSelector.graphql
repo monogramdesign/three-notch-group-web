@@ -5,6 +5,7 @@ fragment ContentListSelector on ContentListSelectorRecord {
 	description
 	image
 	items {
+		__typename
 		id
 		name
 		slug
