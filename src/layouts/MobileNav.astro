@@ -1,0 +1,124 @@
+---
+import ArrowIcon from '../assets/icons/ArrowIcon.astro'
+import ChevronIcon from '../assets/icons/ChevronIcon.astro'
+import { navigation } from '../data/navigation'
+---
+
+<!-- Container -->
+<div class="fixed inset-0 h-[calc(100vh-81px)] top-[81px] md:hidden overflow-hidden">
+	<!-- Main Menu Panel -->
+	<div
+		id="mobile-menu"
+		class="absolute inset-0 flex flex-col px-2 pt-8 pb-3 bg-chalk dark:bg-charcoal transition-transform duration-500 ease-[var(--m7-ease)]"
+	>
+		{
+			navigation.map((item) => (
+				<>
+					{item.dropdown ? (
+						<button
+							class="mobile-nav-link flex justify-between items-center w-full text-left"
+							data-dropdown={item.label}
+						>
+							{item.label}
+							<ChevronIcon class="ml-2 mt-0.5 -rotate-90 w-5 stroke-flint" />
+						</button>
+					) : (
+						<a href={item.href} class="block mobile-nav-link">
+							{item.label}
+						</a>
+					)}
+				</>
+			))
+		}
+
+		<div class="flex flex-col text-flint mt-auto pt-10">
+			<a href="/" class="bottom-link">Privacy Statement</a>
+			<a href="/" class="bottom-link">Terms of Use</a>
+		</div>
+	</div>
+
+	<!-- Dropdown Panel -->
+	<div
+		id="dropdown-panel"
+		class="absolute inset-0 px-2 pt-2 pb-3 bg-chalk dark:bg-charcoal translate-x-full transition-transform ease-[var(--m7-ease)] duration-500"
+	>
+		<!-- Back Button -->
+		<button
+			class="flex items-center text-flint dark:text-chalk w-full px-3 py-7 mb-2"
+			id="back-button"
+		>
+			<ArrowIcon class="w-4 stroke-charcoal dark:stroke-flint mr-3 mb-0.5" />
+			<span id="current-dropdown" class="ml-2 text-flint dark:text-chalk"></span>
+		</button>
+
+		<!-- Dropdown Content -->
+		<div id="dropdown-content">
+			<!-- Content is dynamically inserted here -->
+		</div>
+	</div>
+</div>
+
+<script>
+	import { navigation } from '../data/navigation'
+
+	const mobileMenu = document.getElementById('mobile-menu')
+	const dropdownPanel = document.getElementById('dropdown-panel')
+	const dropdownContent = document.getElementById('dropdown-content')
+	const backButton = document.getElementById('back-button')
+
+	// Handle dropdown button clicks
+	document.querySelectorAll('[data-dropdown]').forEach((button) => {
+		button.addEventListener('click', () => {
+			const dropdownLabel = button.getAttribute('data-dropdown')
+			const dropdownItems = navigation.find((item) => item.label === dropdownLabel)?.dropdown
+
+			if (dropdownItems) {
+				// Set the current dropdown label on the back button
+				document.getElementById('current-dropdown').textContent = dropdownLabel
+
+				// Populate dropdown content
+				dropdownContent.innerHTML = dropdownItems
+					.map(
+						(item) => `
+					<a href="${item.href}" class="block mobile-nav-link">
+						${item.label}
+					</a>
+				`
+					)
+					.join('')
+
+				// Show dropdown panel
+				mobileMenu.classList.add('-translate-x-full')
+				dropdownPanel.classList.remove('translate-x-full')
+			}
+		})
+	})
+
+	// Handle back button click
+	backButton.addEventListener('click', () => {
+		mobileMenu.classList.remove('-translate-x-full')
+		dropdownPanel.classList.add('translate-x-full')
+	})
+
+	// Handle mobile menu closing
+	const nav = document.querySelector('nav')
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			if (mutation.attributeName === 'class') {
+				const isActive = nav?.classList.contains('active')
+				if (!isActive) {
+					// Reset panels when menu is closed
+					mobileMenu?.classList.remove('-translate-x-full')
+					dropdownPanel?.classList.add('translate-x-full')
+					// Add the same transform as the mobile menu
+					dropdownPanel?.classList.add('-translate-y-[calc(100%+115px)]')
+				} else {
+					// Remove the transform when menu is opened
+					dropdownPanel?.classList.remove('-translate-y-[calc(100%+115px)]')
+				}
+			}
+		})
+	})
+
+	observer.observe(nav, { attributes: true })
+</script>

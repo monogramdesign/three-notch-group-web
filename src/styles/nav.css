@@ -1,0 +1,15 @@
+#nav-bar {
+	@apply transition-colors duration-800 ease-out;
+
+	.active & {
+		@apply bg-chalk dark:bg-charcoal;
+	}
+
+	&:not(.active &) {
+		@apply bg-transparent delay-800;
+	}
+}
+
+.nav-link {
+	@apply text-flint dark:text-chalk/80 hover:text-white px-3 py-4 text-sm lg:text-lg flex items-center transition-colors duration-200;
+}

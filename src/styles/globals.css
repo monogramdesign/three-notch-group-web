@@ -11,35 +11,56 @@
 
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+	font-family: 'BDOGrotesk';
+	src: url('/fonts/BDOGrotesk-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDOGrotesk';
+	src: url('/fonts/BDOGrotesk-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-display: swap;
+}
+
 :root {
-	--foreground: 0 0% 100%;
-	--background: 0 0% 3%;
-	--orange-100: 15, 40%, 79%;
-	--orange-300: 13, 36%, 52%;
-	--orange-350: 25, 100%, 47%;
-	--orange-400: 25, 85%, 50%;
-	--orange-800: 25, 85%, 40%;
-	--orange-900: 25, 85%, 30%;
+	--charcoal: #0d0d0d;
+	--flint: #5e6f77;
+	--chalk: #f0f6f3;
+	--limestone: #dbe1de;
+	--verdant: #49c237;
+	--amber: #a4633b;
 }
 
 @theme {
-	--color-foreground: hsl(var(--foreground)); /* #ffffff */
-	--color-background: hsl(var(--background)); /* #070707 */
-	--color-orange-100: hsl(var(--orange-100)); /* #dfbfb4 */
-	--color-orange-300: hsl(var(--orange-300)); /* #b06a57 */
-	--color-orange-350: hsl(var(--orange-350)); /* #F06400 */
-	--color-orange-400: hsl(var(--orange-400)); /* #CC5500 */
-	--color-orange-800: hsl(var(--orange-800)); /* #8D4004 */
-	--color-orange-900: hsl(var(--orange-900)); /* #411C01 */
+	--font-sans: 'BDOGrotesk', sans-serif;
 
-	--ease-fluid: cubic-bezier(0.3, 0, 0, 1);
-	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+	--color-charcoal: var(--charcoal);
+	--color-flint: var(--flint);
+	--color-chalk: var(--chalk);
+	--color-limestone: var(--limestone);
+	--color-verdant: var(--verdant);
+	--color-amber: var(--amber);
+
+	--ease-fluid: cubic-bezier(0.3, 0, 0, 1) --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 	--m-ease-out: cubic-bezier(0.082, 0.234, 0.246, 0.988);
 	--m-ease-in: cubic-bezier(1, 0.17, 0.887, 0.811);
+	--m7-ease: cubic-bezier(0.86, 0, 0.07, 1);
+
+	--breakpoint-xs: 480px;
+	--breakpoint-3xl: 1630px;
+}
+
+::selection {
+	@apply bg-verdant;
 }
 
 html {
-	@apply text-foreground bg-background scroll-smooth overflow-x-clip;
+	@apply scroll-smooth overflow-x-clip font-sans;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-font-smoothing: antialiased;
 }
@@ -48,16 +69,18 @@ body {
 	@apply min-h-dvh;
 }
 
-img {
-	@apply bg-white/10 rounded-sm;
+button {
+	@apply cursor-pointer;
 }
 
 .container {
-	@apply px-4 md:px-8 lg:px-16 mx-auto;
+	@apply mx-auto w-full max-w-[1700px] px-4 md:px-8 lg:px-16;
 }
 
 @layer base {
 }
 
 @layer components {
+	@import './nav.css';
+	@import './mobile-nav.css';
 }

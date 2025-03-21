@@ -1,5 +1,7 @@
 ---
 import Head from '../components/Head.astro'
+import Nav from './Nav.astro'
+import '../styles/globals.css'
 
 export interface Props {
 	seo: {
@@ -17,6 +19,10 @@ const { seo } = Astro.props
 <html lang="en">
 	<Head {...seo} />
 	<body>
+		<header>
+			<Nav theme="dark" />
+		</header>
+
 		<slot />
 	</body>
 </html>

@@ -1,0 +1,35 @@
+.mobile-menu-icon {
+	@apply w-8 h-8 relative;
+	&::before,
+	&::after {
+		@apply absolute content-[''] inset-x-0 top-1/2 h-px rounded-full transition-transform duration-300 ease-[var(--m7-ease)] origin-center;
+	}
+	&::before {
+		@apply translate-y-[300%];
+	}
+	&::after {
+		@apply -translate-y-[300%];
+	}
+	.active &::before {
+		@apply translate-y-0 rotate-45;
+	}
+	.active &::after {
+		@apply translate-y-0 -rotate-45;
+	}
+}
+
+#mobile-menu {
+	@apply -translate-y-[calc(100%+115px)] transition-transform duration-800 ease-[var(--m7-ease)] bg-limestone dark:bg-charcoal h-full overflow-y-auto pointer-events-none;
+
+	.active & {
+		@apply translate-y-0 z-20 pointer-events-auto;
+	}
+}
+
+.mobile-nav-link {
+	@apply text-2xl text-charcoal dark:text-chalk px-3 py-3;
+}
+
+.bottom-link {
+	@apply py-1 px-3 hover:text-charcoal dark:hover:text-chalk transition-colors duration-300 ease-[var(--m7-ease)];
+}

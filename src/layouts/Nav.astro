@@ -1,0 +1,98 @@
+---
+import ChevronIcon from '../assets/icons/ChevronIcon.astro'
+import Logo from '../components/Logo.astro'
+import { navigation } from '../data/navigation'
+import MobileNav from './MobileNav.astro'
+import clsx from 'clsx'
+
+interface Props {
+	theme?: 'light' | 'dark'
+}
+
+const { theme } = Astro.props
+---
+
+<nav class={clsx('nav fixed top-0 inset-x-0 z-50', theme)}>
+	<!-- Navbar (Desktop & Mobile) -->
+	<div
+		id="nav-bar"
+		class="container flex justify-between items-center border-b border-flint/20 dark:border-chalk/30"
+	>
+		<!-- Logo -->
+		<a href="/" class="shrink-0 py-4 md:py-8">
+			<Logo class="h-12 w-auto" color={theme === 'light' ? '#000000' : '#FFFFFF'} />
+		</a>
+
+		<!-- Navigation Links & Dropdowns -->
+		<div class="hidden md:flex items-center">
+			{
+				navigation.map((item) => (
+					<div class="relative group">
+						{item.dropdown ? (
+							// Dropdown Link
+							<button class="group nav-link">
+								{item.label}
+								<ChevronIcon class="ml-2 mt-0.5 w-3 group-hover:rotate-180 transition-transform duration-200 ease-[var(--m7-ease)] stroke-current" />
+							</button>
+						) : (
+							// Simple Link
+							<a href={item.href} class="nav-link">
+								{item.label}
+							</a>
+						)}
+						{item.dropdown && (
+							<div class="absolute left-2 min-w-48 overflow-hidden shadow-lg bg-chalk/80 backdrop-blur-md border border-flint/20 dark:border-chalk/50 opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-[var(--m7-ease)]">
+								<div role="menu">
+									{item.dropdown.map((dropdownItem) => (
+										<a
+											href={dropdownItem.href}
+											class="block px-4 py-2 text-gray-700 hover:bg-gray-100 border-b border-flint/20 dark:border-chalk/50 transition-colors duration-200 ease-[var(--m7-ease)]"
+											role="menuitem"
+										>
+											{dropdownItem.label}
+										</a>
+									))}
+								</div>
+							</div>
+						)}
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Mobile Menu Button -->
+		<button
+			type="button"
+			class="md:hidden mobile-menu-button inline-flex items-center justify-center py-6 border-l border-flint/20 dark:border-chalk/30 pl-4 text-flint dark:text-chalk/80 hover:text-white focus:outline-none"
+			aria-controls="mobile-menu"
+			aria-expanded="false"
+		>
+			<span class="sr-only">Open main menu</span>
+			<div
+				class="mobile-menu-icon after:bg-flint dark:after:bg-chalk
+      before:bg-flint dark:before:bg-chalk"
+			>
+			</div>
+		</button>
+	</div>
+
+	<MobileNav />
+
+	<script>
+		const mobileMenuButton = document.querySelector('.mobile-menu-button')
+		const nav = document.querySelector('nav')
+
+		mobileMenuButton?.addEventListener('click', () => {
+			nav?.classList.toggle('active')
+		})
+
+		// Handle scroll-based blur effect
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				nav?.classList.add('backdrop-blur-sm')
+			} else {
+				nav?.classList.remove('backdrop-blur-sm')
+			}
+		})
+	</script>
+</nav>
