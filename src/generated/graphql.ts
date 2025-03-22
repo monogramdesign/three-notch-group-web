@@ -596,6 +596,7 @@ export type GlobalNavFooterRecord = RecordInterface & {
 	_updatedAt: Scalars['DateTime']['output']
 	id: Scalars['ItemId']['output']
 	navigationItems: Array<GroupedNavigationRecord>
+	theme?: Maybe<Scalars['String']['output']>
 }
 
 /** Record of type Global (Nav/Footer) (global_nav_footer) */
@@ -3829,6 +3830,7 @@ export type GlobalNavFooterQuery = {
 	globalNavFooter?: {
 		__typename?: 'GlobalNavFooterRecord'
 		id: any
+		theme?: string | null
 		navigationItems: Array<{
 			__typename?: 'GroupedNavigationRecord'
 			id: any
@@ -4327,6 +4329,7 @@ export const GlobalNavFooterDocument = gql`
 					slug
 				}
 			}
+			theme
 		}
 	}
 `

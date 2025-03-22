@@ -5,16 +5,10 @@ import { getGlobalNavFooter } from '../services/globalService'
 import MobileNav from './MobileNav.astro'
 import clsx from 'clsx'
 
-interface Props {
-	theme?: 'light' | 'dark'
-}
-
-const { theme } = Astro.props
-
 const { globalNavFooter } = await getGlobalNavFooter()
 ---
 
-<nav class={clsx('nav fixed top-0 inset-x-0 z-50', theme)}>
+<nav class={clsx('nav fixed top-0 inset-x-0 z-50', globalNavFooter?.theme)}>
 	<!-- Navbar (Desktop & Mobile) -->
 	<div
 		id="nav-bar"
@@ -22,7 +16,10 @@ const { globalNavFooter } = await getGlobalNavFooter()
 	>
 		<!-- Logo -->
 		<a href="/" class="shrink-0 py-4 md:py-8">
-			<Logo class="h-12 w-auto" color={theme === 'light' ? '#000000' : '#FFFFFF'} />
+			<Logo
+				class="h-12 w-auto"
+				color={globalNavFooter?.theme === 'light' ? '#000000' : '#FFFFFF'}
+			/>
 		</a>
 
 		<!-- Navigation Links & Dropdowns -->

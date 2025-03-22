@@ -15,5 +15,6 @@ query GlobalNavFooter {
 				slug
 			}
 		}
+		theme
 	}
 }
