@@ -1,0 +1,14 @@
+fragment Timeline on TimelineRecord {
+	__typename
+	id
+	title
+	variation
+	items {
+		__typename
+		id
+		year
+		image
+		title
+		description
+	}
+}

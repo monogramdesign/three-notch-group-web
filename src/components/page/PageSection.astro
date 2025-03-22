@@ -7,7 +7,8 @@ import type {
 	CardStackFragment,
 	MediaBlockFragment,
 	TextBlockFragment,
-	ContentListSelectorFragment
+	ContentListSelectorFragment,
+	TimelineFragment
 } from '../../generated/graphql'
 import InnerHero from '../hero/InnerHero.astro'
 import HomeHero from '../hero/HomeHero.astro'
@@ -17,6 +18,7 @@ import CardStack from '../cardStack/CardStack.astro'
 import MediaBlock from '../mediaBlock/MediaBlock.astro'
 import TextBlock from '../textBlock/TextBlock.astro'
 import ContentListSelector from '../contentListSelector/ContentListSelector.astro'
+import Timeline from '../timeline/Timeline.astro'
 type Props = {
 	section:
 		| HomeHeroFragment
@@ -27,6 +29,7 @@ type Props = {
 		| MediaBlockFragment
 		| TextBlockFragment
 		| ContentListSelectorFragment
+		| TimelineFragment
 }
 
 const { section } = Astro.props
@@ -44,3 +47,4 @@ const { section } = Astro.props
 		<ContentListSelector {...(section as ContentListSelectorFragment)} />
 	)
 }
+{section.__typename === 'TimelineRecord' && <Timeline {...(section as TimelineFragment)} />}

@@ -28,5 +28,8 @@ fragment PageFragment on PageRecord {
 		... on ContentListSelectorRecord {
 			...ContentListSelector
 		}
+		... on TimelineRecord {
+			...Timeline
+		}
 	}
 }
