@@ -14,7 +14,7 @@ const { title, imageUrl, slug, aspectRatio = '4/3' } = Astro.props
 <div class="card">
 	{
 		imageUrl && (
-			<div class={`aspect-[${aspectRatio}] mb-4 overflow-hidden`}>
+			<div class={`mb-4 overflow-hidden`}>
 				<Image
 					src={imageUrl}
 					alt={title || ''}
