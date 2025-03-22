@@ -12,7 +12,7 @@ type Props = Pick<HomeHeroFragment, 'title' | 'description' | 'backgroundImage'>
 const { title, description, backgroundImage, navTheme = 'dark' } = Astro.props
 ---
 
-<section class="home-hero relative min-h-dvh bg-charcoal border-t border-transparent mt-0">
+<section class="home-hero relative bg-charcoal border-t border-transparent mt-0">
 	{
 		backgroundImage && (
 			<Image

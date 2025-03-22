@@ -1,5 +1,9 @@
 ---
 import type { InnerHeroFragment } from '../../generated/graphql'
+import { Image } from 'astro:assets'
+import { clsx } from 'clsx'
+import BoldArrowIcon from '../../assets/icons/BoldArrowIcon.astro'
+import ArrowIcon from '../../assets/icons/ArrowIcon.astro'
 
 type Props = Pick<
 	InnerHeroFragment,
@@ -9,26 +13,60 @@ type Props = Pick<
 const { title, description, backgroundImage, variation, eyebrow } = Astro.props
 ---
 
-<section class="inner-hero">
-	<div class="container mx-auto px-4">
-		<div class="flex flex-col items-center justify-center">
-			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+<section class="home-hero relative min-h-[80vh] bg-charcoal border-t border-transparent mt-0">
+	{
+		backgroundImage && (
+			<Image
+				src={backgroundImage[0].url}
+				alt={title || 'Hero background'}
+				width={1920}
+				height={1080}
+				class="absolute w-full h-full object-cover z-0"
+				priority
+				quality="max"
+			/>
+		)
+	}
+
+	<!-- Share hero classes?  -->
+	<div
+		class="container relative flex justify-between max-lg:flex-col mt-[112px] h-[calc(80vh-112px)] z-10"
+	>
+		<div class="flex flex-col justify-end">
+			<span class="text-lg md:text-xl text-white mb-6">
+				{eyebrow}
+			</span>
+			<h1 class="hero-title text-chalk leading-none mb-6 lg:mb-10">
 				{title}
 			</h1>
-			<p class="text-lg md:text-xl max-w-2xl mx-auto">
+		</div>
+
+		<!-- This hero gets the navTheme from the navigation bar so that the border matches -->
+		<div
+			class={clsx(
+				'flex flex-col lg:justify-end lg:border-l w-full lg:max-w-1/5 2xl:max-w-[445px] lg:p-10 lg:pr-0',
+				'border-chalk/30'
+				// {
+				// 	'border-chalk/30': navTheme === 'dark',
+				// 	'border-flint/20': navTheme === 'light'
+				// }
+			)}
+		>
+			<p class="body-sm pb-8">
 				{description}
 			</p>
-			{
-				backgroundImage && (
-					<p class="text-lg md:text-xl max-w-2xl mx-auto">{backgroundImage[0].url}</p>
-				)
-			}
-			<p class="text-lg md:text-xl max-w-2xl mx-auto">
-				{variation}
-			</p>
-			<p class="text-lg md:text-xl max-w-2xl mx-auto">
-				{eyebrow}
-			</p>
+
+			<!-- TODO: @israel - add dynamic hero cta here -->
+			<!-- TODO: @sami - create a resuable button with icon component -->
+			<button class="button button-primary lg:w-fit max-lg:mb-10">
+				View Projects
+
+				<!-- desktop arrow -->
+				<BoldArrowIcon class="max-lg:hidden w-4.5 fill-black ml-auto lg:ml-2 pr-1 shrink-0" />
+
+				<!-- mobile arrow -->
+				<ArrowIcon class="lg:hidden w-5 stroke-black ml-auto pr-1 rotate-135 shrink-0" />
+			</button>
 		</div>
 	</div>
 </section>

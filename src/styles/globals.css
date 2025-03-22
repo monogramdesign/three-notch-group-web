@@ -56,7 +56,7 @@
 }
 
 ::selection {
-	@apply bg-verdant;
+	@apply bg-verdant text-charcoal;
 }
 
 html {

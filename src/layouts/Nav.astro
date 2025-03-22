@@ -88,9 +88,9 @@ const { globalNavFooter } = await getGlobalNavFooter()
 		// Handle scroll-based blur effect
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > 1) {
-				nav?.classList.add('backdrop-blur-sm')
+				nav?.classList.add('backdrop-blur-sm', 'bg-black/20')
 			} else {
-				nav?.classList.remove('backdrop-blur-sm')
+				nav?.classList.remove('backdrop-blur-sm', 'bg-black/20')
 			}
 		})
 	</script>

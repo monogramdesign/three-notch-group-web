@@ -2,6 +2,11 @@
 	font-size: clamp(76px, 9vw, 190px);
 }
 
+.hero-title {
+	font-size: clamp(56px, 7vw, 96px);
+	@apply text-balance;
+}
+
 .body-sm {
 	@apply text-lg tracking-tighter leading-relaxed text-chalk text-balance;
 }
