@@ -578,6 +578,31 @@ export type FormSelectItemRecord_SeoMetaTagsArgs = {
 	locale?: InputMaybe<SiteLocale>
 }
 
+/** Record of type Global (Nav/Footer) (global_nav_footer) */
+export type GlobalNavFooterRecord = RecordInterface & {
+	__typename?: 'GlobalNavFooterRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	navigationItems: Array<GroupedNavigationRecord>
+}
+
+/** Record of type Global (Nav/Footer) (global_nav_footer) */
+export type GlobalNavFooterRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
 export type GlobalSeoField = {
 	__typename?: 'GlobalSeoField'
 	facebookPageUrl?: Maybe<Scalars['String']['output']>
@@ -585,6 +610,33 @@ export type GlobalSeoField = {
 	siteName?: Maybe<Scalars['String']['output']>
 	titleSuffix?: Maybe<Scalars['String']['output']>
 	twitterAccount?: Maybe<Scalars['String']['output']>
+}
+
+/** Block of type Grouped Navigation (grouped_navigation) */
+export type GroupedNavigationRecord = RecordInterface & {
+	__typename?: 'GroupedNavigationRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	groupLabel?: Maybe<Scalars['String']['output']>
+	groupLinkedItems: Array<PageRecord>
+	id: Scalars['ItemId']['output']
+	mainLinkedPage?: Maybe<PageRecord>
+}
+
+/** Block of type Grouped Navigation (grouped_navigation) */
+export type GroupedNavigationRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
 }
 
 /** Block of type Home Hero (home_hero) */
@@ -2599,6 +2651,32 @@ export enum MuxThumbnailFormatType {
 	Png = 'png'
 }
 
+/** Block of type Nav Link (nav_link) */
+export type NavLinkRecord = RecordInterface & {
+	__typename?: 'NavLinkRecord'
+	_createdAt: Scalars['DateTime']['output']
+	/** Editing URL */
+	_editingUrl?: Maybe<Scalars['String']['output']>
+	_firstPublishedAt?: Maybe<Scalars['DateTime']['output']>
+	_isValid: Scalars['BooleanType']['output']
+	_modelApiKey: Scalars['String']['output']
+	_publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_publishedAt?: Maybe<Scalars['DateTime']['output']>
+	/** Generates SEO and Social card meta tags to be used in your frontend */
+	_seoMetaTags: Array<Tag>
+	_status: ItemStatus
+	_unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>
+	_updatedAt: Scalars['DateTime']['output']
+	id: Scalars['ItemId']['output']
+	label?: Maybe<Scalars['String']['output']>
+	linkedPage?: Maybe<PageRecord>
+}
+
+/** Block of type Nav Link (nav_link) */
+export type NavLinkRecord_SeoMetaTagsArgs = {
+	locale?: InputMaybe<SiteLocale>
+}
+
 /** Specifies how to filter by image orientation */
 export type OrientationFilter = {
 	/** Search uploads with the specified orientation */
@@ -2732,6 +2810,8 @@ export type Query = {
 	article?: Maybe<ArticleRecord>
 	/** Returns a specific record */
 	category?: Maybe<CategoryRecord>
+	/** Returns the single instance record */
+	globalNavFooter?: Maybe<GlobalNavFooterRecord>
 	/** Returns a specific record */
 	infoCard?: Maybe<InfoCardRecord>
 	/** Returns a specific record */
@@ -2840,6 +2920,12 @@ export type QueryCategoryArgs = {
 	filter?: InputMaybe<CategoryModelFilter>
 	locale?: InputMaybe<SiteLocale>
 	orderBy?: InputMaybe<Array<InputMaybe<CategoryModelOrderBy>>>
+}
+
+/** The query root for this schema */
+export type QueryGlobalNavFooterArgs = {
+	fallbackLocales?: InputMaybe<Array<SiteLocale>>
+	locale?: InputMaybe<SiteLocale>
 }
 
 /** The query root for this schema */
@@ -3736,6 +3822,33 @@ export type TextBlockFragment = {
 	variation?: string | null
 }
 
+export type GlobalNavFooterQueryVariables = Exact<{ [key: string]: never }>
+
+export type GlobalNavFooterQuery = {
+	__typename?: 'Query'
+	globalNavFooter?: {
+		__typename?: 'GlobalNavFooterRecord'
+		id: any
+		navigationItems: Array<{
+			__typename?: 'GroupedNavigationRecord'
+			id: any
+			groupLabel?: string | null
+			mainLinkedPage?: {
+				__typename?: 'PageRecord'
+				id: any
+				name?: string | null
+				slug?: string | null
+			} | null
+			groupLinkedItems: Array<{
+				__typename?: 'PageRecord'
+				id: any
+				name?: string | null
+				slug?: string | null
+			}>
+		}>
+	} | null
+}
+
 export type PageQueryVariables = Exact<{
 	slug?: InputMaybe<Scalars['String']['input']>
 }>
@@ -4196,6 +4309,27 @@ export const AllCategoriesDocument = gql`
 	}
 	${CategoryFragmentDoc}
 `
+export const GlobalNavFooterDocument = gql`
+	query GlobalNavFooter {
+		globalNavFooter {
+			id
+			navigationItems {
+				id
+				groupLabel
+				mainLinkedPage {
+					id
+					name
+					slug
+				}
+				groupLinkedItems {
+					id
+					name
+					slug
+				}
+			}
+		}
+	}
+`
 export const PageDocument = gql`
 	query Page($slug: String) {
 		page(filter: { slug: { eq: $slug } }) {
@@ -4236,6 +4370,21 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
 						...wrappedRequestHeaders
 					}),
 				'AllCategories',
+				'query',
+				variables
+			)
+		},
+		GlobalNavFooter(
+			variables?: GlobalNavFooterQueryVariables,
+			requestHeaders?: GraphQLClientRequestHeaders
+		): Promise<GlobalNavFooterQuery> {
+			return withWrapper(
+				(wrappedRequestHeaders) =>
+					client.request<GlobalNavFooterQuery>(GlobalNavFooterDocument, variables, {
+						...requestHeaders,
+						...wrappedRequestHeaders
+					}),
+				'GlobalNavFooter',
 				'query',
 				variables
 			)

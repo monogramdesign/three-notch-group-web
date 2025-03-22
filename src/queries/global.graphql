@@ -1,0 +1,19 @@
+query GlobalNavFooter {
+	globalNavFooter {
+		id
+		navigationItems {
+			id
+			groupLabel
+			mainLinkedPage {
+				id
+				name
+				slug
+			}
+			groupLinkedItems {
+				id
+				name
+				slug
+			}
+		}
+	}
+}

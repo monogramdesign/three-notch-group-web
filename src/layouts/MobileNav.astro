@@ -1,7 +1,9 @@
 ---
+import { getGlobalNavFooter } from '../services/globalService'
 import ArrowIcon from '../assets/icons/ArrowIcon.astro'
 import ChevronIcon from '../assets/icons/ChevronIcon.astro'
-import { navigation } from '../data/navigation'
+
+const { globalNavFooter } = await getGlobalNavFooter()
 ---
 
 <!-- Container -->
@@ -12,19 +14,19 @@ import { navigation } from '../data/navigation'
 		class="absolute inset-0 flex flex-col px-2 pt-8 pb-3 bg-chalk dark:bg-charcoal transition-transform duration-500 ease-[var(--m7-ease)]"
 	>
 		{
-			navigation.map((item) => (
+			globalNavFooter?.navigationItems.map((item) => (
 				<>
-					{item.dropdown ? (
+					{item.groupLinkedItems.length > 0 ? (
 						<button
 							class="mobile-nav-link flex justify-between items-center w-full text-left"
-							data-dropdown={item.label}
+							data-dropdown={item.groupLabel}
 						>
-							{item.label}
+							{item.groupLabel}
 							<ChevronIcon class="ml-2 mt-0.5 -rotate-90 w-5 stroke-flint" />
 						</button>
 					) : (
-						<a href={item.href} class="block mobile-nav-link">
-							{item.label}
+						<a href={`/${item.mainLinkedPage?.slug}`} class="block mobile-nav-link">
+							{item.groupLabel}
 						</a>
 					)}
 				</>
@@ -58,9 +60,7 @@ import { navigation } from '../data/navigation'
 	</div>
 </div>
 
-<script>
-	import { navigation } from '../data/navigation'
-
+<script define:vars={{ navigationItems: globalNavFooter?.navigationItems }}>
 	const mobileMenu = document.getElementById('mobile-menu')
 	const dropdownPanel = document.getElementById('dropdown-panel')
 	const dropdownContent = document.getElementById('dropdown-content')
@@ -70,34 +70,41 @@ import { navigation } from '../data/navigation'
 	document.querySelectorAll('[data-dropdown]').forEach((button) => {
 		button.addEventListener('click', () => {
 			const dropdownLabel = button.getAttribute('data-dropdown')
-			const dropdownItems = navigation.find((item) => item.label === dropdownLabel)?.dropdown
+			const dropdownItems = navigationItems?.find(
+				(item) => item.groupLabel === dropdownLabel
+			)?.groupLinkedItems
 
 			if (dropdownItems) {
 				// Set the current dropdown label on the back button
-				document.getElementById('current-dropdown').textContent = dropdownLabel
+				const currentDropdown = document.getElementById('current-dropdown')
+				if (currentDropdown) {
+					currentDropdown.textContent = dropdownLabel
+				}
 
 				// Populate dropdown content
-				dropdownContent.innerHTML = dropdownItems
-					.map(
-						(item) => `
-					<a href="${item.href}" class="block mobile-nav-link">
-						${item.label}
-					</a>
-				`
-					)
-					.join('')
+				if (dropdownContent) {
+					dropdownContent.innerHTML = dropdownItems
+						.map(
+							(item) => `
+						<a href="${item.slug ? `/${item.slug}` : '#'}" class="block mobile-nav-link">
+							${item.name || ''}
+						</a>
+					`
+						)
+						.join('')
 
-				// Show dropdown panel
-				mobileMenu.classList.add('-translate-x-full')
-				dropdownPanel.classList.remove('translate-x-full')
+					// Show dropdown panel
+					mobileMenu?.classList.add('-translate-x-full')
+					dropdownPanel?.classList.remove('translate-x-full')
+				}
 			}
 		})
 	})
 
 	// Handle back button click
-	backButton.addEventListener('click', () => {
-		mobileMenu.classList.remove('-translate-x-full')
-		dropdownPanel.classList.add('translate-x-full')
+	backButton?.addEventListener('click', () => {
+		mobileMenu?.classList.remove('-translate-x-full')
+		dropdownPanel?.classList.add('translate-x-full')
 	})
 
 	// Handle mobile menu closing
@@ -120,5 +127,7 @@ import { navigation } from '../data/navigation'
 		})
 	})
 
-	observer.observe(nav, { attributes: true })
+	if (nav) {
+		observer.observe(nav, { attributes: true })
+	}
 </script>
