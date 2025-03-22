@@ -1,0 +1,12 @@
+.button {
+	@apply relative flex items-center gap-2 lg:text-xl lg:font-medium pt-3.5 pb-3 pl-4 mr-4.5 cursor-pointer;
+}
+
+.button-primary {
+	@apply bg-verdant text-black;
+}
+
+.button-primary::after {
+	@apply content-[''] absolute top-0 -right-4.5 w-4.5 h-full bg-verdant;
+	clip-path: polygon(0 0, 100% 0, 100% 68%, 0 100%);
+}

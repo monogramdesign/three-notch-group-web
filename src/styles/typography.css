@@ -1,0 +1,7 @@
+.home-title {
+	font-size: clamp(76px, 9vw, 190px);
+}
+
+.body-sm {
+	@apply text-lg tracking-tighter leading-relaxed text-chalk text-balance;
+}
